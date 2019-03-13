@@ -1,0 +1,31 @@
+*{
+    margin: 0;
+    padding: 0%;
+}
+
+.color_rojo{
+    background-color: #C11C1C;
+}
+
+.img_profile{
+    border-radius: 50%;
+    size: 20px;
+    width: 115px;
+    height: 115px;
+}
+
+/* .titulo{
+    display: flex;
+    justify-content: flex-end;
+} */
+
+h1{
+    color: white;
+    padding: 50px;
+}
+
+.formulario{
+    display: flex;
+    justify-content: flex-end;
+}
+

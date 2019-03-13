@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Login</title>
+    <link rel="stylesheet" type="text/css" href="estilos/estilo_login.css">
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+    <script src="js/jquery-3.3.1.min.js"></script>
+    <script src="css/funciones.js"></script>
+</head>
+<body>
+    <div class="padre">
+        <div class="row justify-content-start color_rojo pl-5 pb-2 pt-2">
+                <div class = "row justify-content-start">
+                    <img src="img/logo.png" alt="">
+                    <h1>Sistema de control de inventario</h1>
+                </div>                
+        </div>
+                
+        <div class="formulario mr-5 mt-5 justify-content-center">
+            <form action="" class="col-5 form-group">
+                <div class="input-group">
+                    <span class="input-group-text" id="basic-addon1"><i class="fas fa-user"></i></span>
+                    <input id="email" type="text" class="form-control" name="email" placeholder="Email" required>
+                </div>
+        
+                <div class="input-group">
+                    <!-- <label for="password" class="col-2">Contraseña</label> -->
+                    <div class="input-group">
+                        <span class="input-group-text"><i class="fas fa-key"></i></span>
+                        <input type="password" id="password" class="form-control" placeholder="Contraseña" required>
+                    </div>                    
+                </div>
+                <div class="input-group botoncin">    
+                    <!-- <input type="submit" class="btn-primary form-control b1" value="Iniciar Sesión">-->
+                    <button type="submit" class="form-control btn-primary"><i class="fas fa-sign-in-alt"></i> Login</button>
+                </div>      
+            </form>           
+        </div>
+    </div>
+    <script src="js/bootstrap.min.js"></script>
+</body>
+</html>
