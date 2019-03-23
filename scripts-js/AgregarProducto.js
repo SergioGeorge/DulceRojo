@@ -2,17 +2,19 @@ $(document).ready(function () {
     $('form').submit(e => {
         e.preventDefault();
         const data = {
-          claveP: $('#ClaveP').val(),
-          nombreP: $('#NombreP').val(),
-          precioP: $('#PrecioP').val(),
-          familia: $('#FamiliaP').val(),
-          subfamilia: $('#SubFamiliaP').val()
+          clave: $('#claveP').val(),
+          descripcion: $('#descripcionP').val(),
+          precio_entero: $('#precioP_entero').val(),
+          precio_decimal: $('#precioP_decimal').val(),
+          unidad_medida: $('#unidad_medidaP').val(),
+          familia: $('#familiaP').val(),
+          subfamilia: $('#subFamiliaP').val()
         };
-        // const url = edit === false ? 'task-add.php' : 'task-edit.php';
+        
         console.log(data);
-        $.post(postData, (response) => {
-          console.log(response);
-          $('#task-form').trigger('reset');
+        $.post("../controller/ControllerAgregarProducto.php",data, (response) => {
+          console.log(":) " + response);
+          $('form').trigger('reset');
         });
       });
 });

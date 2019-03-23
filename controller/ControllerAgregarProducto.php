@@ -3,19 +3,22 @@
     require_once('../model/Transaccion.php');
     require('../Debug.php');
 
-   $claveProducto = $_POST[''];
-   $nombreProducto = $_POST[''];
-   $precioProducto = $POST[''];
-   $familaProducto = $POST[''];
-   $subfamiliaProducto = $POST['']; 
+   $claveProducto = $_POST['clave'];
+   $descripcionProducto = $_POST['descripcion'];
+   $precio_entero = $_POST['precio_entero'];
+   $precio_decimal = $_POST['precio_decimal'];
+   $unidad_medida = $_POST['unidad_medida'];
+   $familaProducto = $_POST['familia'];
+   $subfamiliaProducto = $_POST['subfamilia'];
 
-    // Debug::historial_dump($matricula, $nombre, $grupo, $id_profesor);
-    // Debug::historial_print_r($matricula, $nombre, $grupo, $id_profesor);
+    //Concatenamos la parte entera y decimal del formulario
+   $precio_total = $precio_entero.'.'.$precio_decimal;
 
+    //Debug::historial_dump($claveProducto, $descripcionProducto, $precioProducto, $unidad_medida, $familaProducto, $subfamiliaProducto);
+    //Debug::historial_print_r($claveProducto, $descripcionProducto, $precioProducto, $unidad_medida, $familaProducto, $subfamiliaProducto);
     
-        $transaccion = new Transaccion();
-        $respuesta = $transaccion->insertarListaPastel($claveProducto, $nombreProducto, $precioProducto,
-                                                        $familaProducto, $subfamiliaProducto);
-
-        echo $respuesta;    
+    $transaccion = new Transaccion();
+    $respuesta = $transaccion->insertarListaPastel($claveProducto, $descripcionProducto, $precio_total,
+                                                    $unidad_medida, $familaProducto, $subfamiliaProducto);
+    echo $respuesta;    
 ?>
