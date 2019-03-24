@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>EntSucursal</title>
+</head>
+<body>
+
+    <div class="padre">
+        <header>
+                <div class = "titulo">
+                    <img src="../img/logo.png" alt="">
+                    <h1>Sistema de control de inventario</h1>
+                </div>
+        </header>
+
+        <div class = "titulo">
+            <h2>Entradas a sucursal</h2>
+        </div>
+        <div class = "titulo">
+            <h6>Descripción de activdad</h6>
+        </div>
+
+            <form action="" class="">
+              <div class="col col-lg-12">
+                <div class="form-group row justify-content-center" align= "center">
+                    <label for="ClaveP" class="col-3" >Código de barras</label>
+                    <div class="col-4">
+                        <input type="text"  placeholder="Código de barras" id="CodigoB" class="form-control">
+                    </div>
+                    <input type="button" name="" class="btn btn-outline-danger btn-lg" onclick="agregarProd()" value="Agregar">
+                </div>
+
+
+            </form>
+            </div>
+            <div class="row justify-content-center">
+                <div class="col-10 col-form-label">
+
+                    <!--TABLA PARA DATOS PBP-->
+                    <table class="table table-striped" id="table-entrada">
+                        <thead class="thead-dark">
+                            <tr>
+                                <th>Código de barras</th>
+                                <th>Clave del producto</th>
+                                <th>Nombre del producto</th>
+                                <th>Borrar</th>
+                            </tr>
+                        </thead>
+                        <tbody id="tbody-entrada">
+                            <tr>
+                                <td>151635156</td>
+                                <td>NG55</td>
+                                <td>Pastel</td>
+                                <td>Borrar</td>
+
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+            </div>
+            <div class="form-group row justify-content-center" align="center">
+
+                <div class="col-10">
+                    <button  class="btn btn-outline-danger btn-lg" >Guardar</button>
+                    <button  class="btn btn-outline-danger btn-lg" >Regresar</button>
+                </div>
+
+            </div>
+    </div>
+    <link rel="stylesheet" type="text/css" href="../estilos/estilo_sucursal.css">
+    <link rel="stylesheet" href="../bootstrap/bootstrap.min.css">
+     <script src="../scripts-js/entradaSucursal.js" language="javascript" type="text/javascript"></script>
+</body>
+</html>
