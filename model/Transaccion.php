@@ -3,19 +3,20 @@
 
     class Transaccion
     {
+
        public function insertarListaPastel($clave, $descripcion, $precio, $unidad_medida, $familia, $subfamilia)
        {
-        //Hacemos un casting de String a Float del campo de 'precio del producto'
-        $precio = (float)$precio;
+            //Hacemos un casting de String a Float del campo de 'precio del producto'
+            $precio = (float)$precio;
+            
+            // Debug::historial_dump($clave, $descripcion, $precio, $unidad_medida, $familia, $subfamilia);
+            // Debug::historial_print_r($clave, $descripcion, $precio, $unidad_medida, $familia, $subfamilia);
            
-        Debug::historial_dump($clave, $descripcion, $precio, $unidad_medida, $familia, $subfamilia);
-        Debug::historial_print_r($clave, $descripcion, $precio, $unidad_medida, $familia, $subfamilia);
-           
-            $modelo = new Conexion();            
-            $conexion = $modelo->getConexion();
+            $modelo = new Conexion();//Creamos una conexión con la BD            
+            $conexion = $modelo->getConexion();//Obtenemos la conexión
 
-            if(!$conexion)
-                echo "<br><br>Error en la conexión<br>";
+            if(!$conexion)//Si la conexión no se establece, se muestra mensaje de error
+                echo "Error en la conexión_";
             
             try{
                 $sql  = "INSERT INTO lista_pastel (clave_pastel, descripcion, precio, unidad_medida, familia, subfamilia) 
@@ -28,16 +29,11 @@
                 $statement->bindParam(':familia', $familia);
                 $statement->bindParam(':subfamilia', $subfamilia);
 
-                //if(!$statement || $statement==null)
-                //{
-                   
-                //}    
-                //else{
-                        $statement->execute();
-                        return "Registro creado correctamente en tabla 'lista_pastel'";     
-                //}
+                $statement->execute();
+                return 1;//Regresa 1 si el registro se ingreso correctamente
+                
             }catch(Exception $e){
-                return "ERROR al insertar registro en tabla 'lista_pastel': ". $e;
+                return 0;////Regresa 0 si existe algún error
             }
             
         }

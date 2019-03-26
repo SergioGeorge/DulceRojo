@@ -13,7 +13,11 @@ $(document).ready(function () {
         
         console.log(data);
         $.post("../controller/ControllerAgregarProducto.php",data, (response) => {
-          console.log(":) " + response);
+          console.log(response);
+          if(response == 1)
+            alert('El registro se ingreso de manera correcta.');
+          else
+            alert('Error al insertar el registro!!!.\nVerifique que la clave del producto no este repetida.');
           $('form').trigger('reset');
         });
       });

@@ -20,5 +20,5 @@
     $transaccion = new Transaccion();
     $respuesta = $transaccion->insertarListaPastel($claveProducto, $descripcionProducto, $precio_total,
                                                     $unidad_medida, $familaProducto, $subfamiliaProducto);
-    echo $respuesta;    
+    echo $respuesta;//track********    
 ?>
