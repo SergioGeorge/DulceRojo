@@ -10,7 +10,7 @@
     <div class="padre">
         <div class="row justify-content-start color_rojo pl-5 pb-2 pt-2">
             <img src="../img/logo.png" alt="">
-            <h1>Sistema de control de inventario</h1>        
+            <h1>Sistema de control de inventario</h1>
         </div>
         <div class = "row ml-5 mb-4 mt-3">
             <div class = "col-3">
@@ -22,19 +22,19 @@
             <div class="form-group row" align= "center">
                 <label for="NoOrden" class="col-1" >No. de Orden</label>
                 <div class="col-4">
-                    <input type="text"  placeholder="Ingresa No. de orden" id="NoOrden" class="form-control">
+                    <input type="text"  placeholder="Ingresa No. de orden" id="NoOrden" class="form-control" required>
                 </div>
             </div>
             <div class="form-group row " align="center">
                 <label for="ClaveP" class="col-1" >Clave del Producto</label>
                 <div class="col-4">
-                    <input type="text" id="ClaveP" class="form-control" placeholder="Ingresa clave del producto">
+                    <input type="text" id="ClaveP" class="form-control" placeholder="Ingresa clave del producto" required>
                 </div>
             </div>
             <div class="form-group row" align="center">
                 <label for="CantidadP" class="col-1">Cantidad del Producto</label>
                 <div class="col-4">
-                    <input type="text" id="CantidadP" class="form-control" placeholder="Ingresa cantidad del producto">
+                    <input type="text" id="CantidadP" class="form-control" placeholder="Ingresa cantidad del producto" required>
                 </div>
             </div>
             <table class="col-5">
@@ -61,8 +61,8 @@
             <div class="form-group row" align="center">
                 <div class="col-10">
                     <button type="submit" class="btn btn-outline-danger btn-lg" >Guardar orden</button>
-                    <button type="submit" class="btn btn-outline-danger btn-lg" >Cancelar</button>
-                    <button type="submit" class="btn btn-outline-danger btn-lg" >Regresar</button>
+                    <button type="reset" class="btn btn-outline-danger btn-lg" >Cancelar</button>
+                    <button type="reset" class="btn btn-outline-danger btn-lg" >Regresar</button>
                 </div>
             </div>
         </form>
