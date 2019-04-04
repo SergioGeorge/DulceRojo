@@ -11,7 +11,7 @@ $(document).ready(function () {
         };
         
         console.log(data);
-        $.post("../controller/ControllerAgregarProducto.php",data, (response) => {
+        $.post("../controller/ControllerAgregarUsuario.php",data, (response) => {
           console.log(":) " + response);
           $('form').trigger('reset');
         });
