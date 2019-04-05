@@ -18,7 +18,7 @@ $(document).ready(function () {
             alert('El registro se ingreso de manera correcta.');
           else
             alert('Error al insertar el registro!!!.\nVerifique que la clave del producto no este repetida.');
-          $('form').trigger('reset');
+          //$('form').trigger('reset');
         });
       });
 });

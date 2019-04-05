@@ -1,5 +1,6 @@
 <?php
     // include('class.conexion.php');
+        include('../Debug.php');
 
     class Transaccion
     {
@@ -19,8 +20,8 @@
                 echo "Error en la conexión_";
             
             try{
-                $sql  = "INSERT INTO lista_pastel (clave_pastel, descripcion, precio, unidad_medida, familia, subfamilia) 
-                    VALUES(:clave_pastel, :descripcion, :precio, :unidad_medida, :familia, :subfamilia)";
+                $sql  = "INSERT INTO lista_pastel (clave_pastel, descripcion, precio, unidad_medida, familia, subfamilia, existe) 
+                    VALUES(:clave_pastel, :descripcion, :precio, :unidad_medida, :familia, :subfamilia, :existe)";
                 $statement = $conexion->prepare($sql);
                 $statement->bindParam(':clave_pastel', $clave);
                 $statement->bindParam(':descripcion', $descripcion);
@@ -28,6 +29,8 @@
                 $statement->bindParam(':unidad_medida', $unidad_medida);
                 $statement->bindParam(':familia', $familia);
                 $statement->bindParam(':subfamilia', $subfamilia);
+                $varExiste = 1;//Bandera que indica que el producto está en existencia
+                $statement->bindParam(':existe', $varExiste);
 
                 $statement->execute();
                 return 1;//Regresa 1 si el registro se ingreso correctamente
@@ -66,20 +69,54 @@
             
         }
 
-        public function getAlumno()
+        public function consultarListaPastel()
         {
             $rows = null;
             $modelo = new Conexion();
             $conexion = $modelo->getConexion();
-            $sql = "SELECT * FROM alumno";
-            $statement = $conexion->prepare($sql);
+            $query = "SELECT clave_pastel, descripcion, precio, unidad_medida, familia, subfamilia FROM lista_pastel";
+            $statement = $conexion->prepare($query);
             $statement->execute();
+            
+            while($result = $statement->fetch())
+            {
+                $json[] = array(
+                    'clave_pastel' => $result['clave_pastel'],
+                    'descripcion' => $result['descripcion'],
+                    'precio' => $result['precio'],
+                    'unidad_medida' => $result['unidad_medida'],
+                    'familia' => $result['familia'],
+                    'subfamilia' => $result['subfamilia']                    
+                );
+            }
+            echo json_encode($json);
+        }
 
-            while($result = $statement->fetch()){
-                $rows[] = $result;
+        public function buscarProducto($search)//Busca un producto en específico
+        {   
+            $rows = null;
+            $modelo = new Conexion();
+            $conexion = $modelo->getConexion();
+            $query = "SELECT clave_pastel, descripcion, precio, unidad_medida, familia, subfamilia FROM lista_pastel
+                        WHERE clave_pastel LIKE '$search%'";
+            $statement = $conexion->prepare($query);
+            $statement->execute(array($search));
+
+            while($result = $statement->fetch())
+            {
+                if(!$result) die("Error al buscar: ");
+                $json[] = array(
+                    'clave_pastel' => $result['clave_pastel'],
+                    'descripcion' => $result['descripcion'],
+                    'precio' => $result['precio'],
+                    'unidad_medida' => $result['unidad_medida'],
+                    'familia' => $result['familia'],
+                    'subfamilia' => $result['subfamilia']                    
+                );
             }
 
-            return $rows;
+                
+            echo json_encode($json);
         }
     }
 

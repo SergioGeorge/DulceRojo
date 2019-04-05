@@ -1,7 +1,7 @@
 <?php
     require_once('../model/Conexion.php');
     require_once('../model/Transaccion.php');
-    require('../Debug.php');
+    //  require('../Debug.php');
 
    $claveProducto = $_POST['clave'];
    $descripcionProducto = $_POST['descripcion'];
