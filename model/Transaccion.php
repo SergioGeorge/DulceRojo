@@ -5,8 +5,8 @@
     class Transaccion
     {
 
-       public function insertarListaPastel($clave, $descripcion, $precio, $unidad_medida, $familia, $subfamilia)
-       {
+        public function insertarListaPastel($clave, $descripcion, $precio, $unidad_medida, $familia, $subfamilia)
+        {
             //Hacemos un casting de String a Float del campo de 'precio del producto'
             $precio = (float)$precio;
 
@@ -17,10 +17,10 @@
             $conexion = $modelo->getConexion();//Obtenemos la conexión
 
             if(!$conexion)//Si la conexión no se establece, se muestra mensaje de error
-                echo "Error en la conexión_";
-
-            try{
-                $sql  = "INSERT INTO LISTA_PASTEL (clave_pastel, descripcion, precio, unidad_medida, familia, subfamilia, existe)
+                echo "Error en la conexión_";            
+            try
+            {
+                $sql  = "INSERT INTO lista_pastel (clave_pastel, descripcion, precio, unidad_medida, familia, subfamilia, existe) 
                     VALUES(:clave_pastel, :descripcion, :precio, :unidad_medida, :familia, :subfamilia, :existe)";
                 $statement = $conexion->prepare($sql);
                 $statement->bindParam(':clave_pastel', $clave);
@@ -63,17 +63,12 @@
 
             }catch(Exception $e){
                 return 0;////Regresa 0 si existe algún error
-            }
-
+            }            
         }
 
-
-
-
         public function insertarUser($user, $name, $apePa, $apeMa, $userRol, $userPas)
-       {
-
-            $modelo = new Conexion();//Creamos una conexión con la BD
+        {           
+            $modelo = new Conexion();//Creamos una conexión con la BD            
             $conexion = $modelo->getConexion();//Obtenemos la conexión
 
             if(!$conexion)//Si la conexión no se establece, se muestra mensaje de error
@@ -244,6 +239,7 @@
 
             echo json_encode($json);
         }
+        
     }
 
 ?>
