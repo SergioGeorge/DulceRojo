@@ -20,7 +20,7 @@
                 echo "Error en la conexión_";
             
             try{
-                $sql  = "INSERT INTO lista_pastel (clave_pastel, descripcion, precio, unidad_medida, familia, subfamilia, existe) 
+                $sql  = "INSERT INTO LISTA_PASTEL (clave_pastel, descripcion, precio, unidad_medida, familia, subfamilia, existe) 
                     VALUES(:clave_pastel, :descripcion, :precio, :unidad_medida, :familia, :subfamilia, :existe)";
                 $statement = $conexion->prepare($sql);
                 $statement->bindParam(':clave_pastel', $clave);
@@ -50,7 +50,7 @@
                 echo "Error en la conexión_";
             
             try{
-                $sql  = "INSERT INTO lista_pastel (clave_pastel, descripcion, precio, unidad_medida, familia, subfamilia) 
+                $sql  = "INSERT INTO USERS (user_var, user_name, ape_pat, ape_mat, user_rol, user_pass) 
                     VALUES(:user, :name, :apePa, :apeMa, :userRol, :userPas)";
                 $statement = $conexion->prepare($sql);
                 $statement->bindParam(':user', $user);
@@ -67,6 +67,56 @@
                 return 0;////Regresa 0 si existe algún error
             }
             
+        }
+
+        public function consultarUsuarios()
+        {
+            $rows = null;
+            $modelo = new Conexion();
+            $conexion = $modelo->getConexion();
+            $query = "SELECT user_var, user_name, ape_pat, ape_mat, user_rol, user_pass FROM USERS";
+            $statement = $conexion->prepare($query);
+            $statement->execute();
+            
+            while($result = $statement->fetch())
+            {
+                $json[] = array(
+                    'user_var' => $result['user_var'],
+                    'user_name' => $result['user_name'],
+                    'ape_pat' => $result['ape_pat'],
+                    'ape_mat' => $result['ape_mat'],
+                    'user_rol' => $result['user_rol'],
+                    'user_pass' => $result['user_pass']                    
+                );
+            }
+            echo json_encode($json);
+        }
+
+        public function buscarUsuario($search)//Busca un producto en específico
+        {   
+            $rows = null;
+            $modelo = new Conexion();
+            $conexion = $modelo->getConexion();
+            $query = "SELECT user_var, user_name, ape_pat, ape_mat, user_rol, user_pass FROM USERS
+                        WHERE user_var LIKE '$search%'";
+            $statement = $conexion->prepare($query);
+            $statement->execute(array($search));
+
+            while($result = $statement->fetch())
+            {
+                if(!$result) die("Error al buscar: ");
+                $json[] = array(
+                    'user_var' => $result['user_var'],
+                    'user_name' => $result['user_name'],
+                    'ape_pat' => $result['ape_pat'],
+                    'ape_mat' => $result['ape_mat'],
+                    'user_rol' => $result['user_rol'],
+                    'user_pass' => $result['user_pass']                    
+                );
+            }
+
+                
+            echo json_encode($json);
         }
 
         public function consultarListaPastel()
