@@ -9,7 +9,7 @@
             //$md5pass = md5($pass);
             $modelo = new Conexion();
             $conexion = $modelo->getConexion();
-            $query = 'SELECT * FROM usuario WHERE usuario = :user AND password = :pass';
+            $query = 'SELECT * FROM users WHERE user_var = :user AND user_pass = :pass';
             $statement = $conexion->prepare($query);
             $statement->execute(['user'=>$user, 'pass'=>$pass]);
 
@@ -23,14 +23,14 @@
         {   
             $modelo = new Conexion();
             $conexion = $modelo->getConexion();
-            $query = 'SELECT * FROM usuario WHERE usuario = :user';
+            $query = 'SELECT * FROM users WHERE user_var = :user';
             $statement = $conexion->prepare($query);                    
             $statement->execute(['user'=>$user]);
             
             while($result = $statement->fetch())
             {
                 if(!result) die("Error al buscar!");
-                $this->usuario = $result['usuario'];
+                $this->usuario = $result['user_var'];
             }            
         }
             
