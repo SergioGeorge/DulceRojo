@@ -11,13 +11,13 @@ $(document).ready(function () {
           console.log("respuesta: " + response);
          
           if(response == 1){
-            window.location = "../view/ListaProductos.html";
+            window.location = "../view/menuMaster.html";
           }            
           else if(response == 0){
             window.location = "../view/Login.html";
             alert('Fallo al iniciar Sesión');
           }else{
-            window.location = "../view/ListaProductos.html";
+            window.location = "../view/menuMater.html";
           }            
           $('form').trigger('reset');
         });
