@@ -1,0 +1,66 @@
+h2
+{
+	position: relative;
+	text-align: center;
+	font-size: 25px;
+}
+a
+{
+	color: black;
+	font-weight: bold;
+}
+.padre
+{
+	text-align: center;
+}
+#presentMain
+{
+	position: relative;
+}
+.lgCeroDef
+{
+	width: 200px;
+}
+.imglogo
+{
+	height: 150px;
+}
+#menutable
+{
+	position: relative;
+}
+#daspage
+{
+	border-top: solid;
+	border-bottom: solid;
+	border-color: #D90E59;
+	margin: 20px;
+	display: inline-block;
+}
+#reportspage
+{
+	border-top: solid;
+	border-bottom: solid;
+	border-color: #D90E59;
+	margin: 20px;
+	display: inline-block;
+}
+.refmenutext
+{
+	border-top: solid;
+	border-color: #D90E59;
+	width: 100%;
+	background-color: #F37DA8;
+	height: 40px;
+	padding: 6px;
+}
+.refmenutext a
+{	
+	vertical-align: middle;
+	margin-top: 5px;
+	font-size: 20px;
+}
+.imgbtmenu
+{
+	width: 100;
+}
