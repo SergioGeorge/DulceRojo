@@ -1,6 +1,6 @@
 $(document).ready(function () {
-    $('#consultar').click(function (e) { 
-          
+    $('#consultar').click(function (e) {
+
           $.post("../controller/ControllerConsultarListaProducto.php",{transaccion:"consultar"}, (response) => {
             console.log(response);
             let campos = $.parseJSON(response);
@@ -31,7 +31,7 @@ $(document).ready(function () {
             });
 
             $('#tbody-entrada').html(registros);
-            
+
             $('form').trigger('reset');
           });
     });
@@ -78,6 +78,5 @@ $(document).ready(function () {
 
         });
     });
-        
+
 });
-        

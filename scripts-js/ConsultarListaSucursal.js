@@ -1,7 +1,7 @@
 $(document).ready(function () {
     $('#consultar').click(function (e) {
 
-          $.post("../controller/ControllerConsultarUsuarios.php",{transaccion:"consultar"}, (response) => {
+          $.post("../controller/ControllerConsultarSucursal.php",{transaccion:"consultar"}, (response) => {
             console.log(response);
             let campos = $.parseJSON(response);
             let registros = '';
@@ -10,22 +10,13 @@ $(document).ready(function () {
               registros += `
               <tr>
                 <td>
-                  ${element.user_var}
+                  ${element.clave_suc}
                 </td>
                 <td>
-                  ${element.user_name}
+                  ${element.nombre}
                 </td>
                 <td>
-                  ${element.ape_pat}
-                </td>
-                <td>
-                  ${element.ape_mat}
-                </td>
-                <td>
-                  ${element.user_rol}
-                </td>
-                <td>
-                  ${element.user_pas}
+                  ${element.direccion}
                 </td>
                 </tr>`
             });
@@ -36,14 +27,14 @@ $(document).ready(function () {
           });
     });
 
-    $('#CodigoB').keyup(function (e) {//Busca un producto en específico
-      let palabra = $('#CodigoB').val();
+    $('#ClaveS').keyup(function (e) {//Busca un producto en específico
+      let palabra = $('#ClaveS').val();
       //console.log(palabra);//Debug
       data = {
         palabra,
         transaccion:"buscar"
       }
-      $.post("../controller/ControllerConsultarUsuarios.php", data, (response) => {
+      $.post("../controller/ControllerConsultarListaSucursal.php", data, (response) => {
           console.log(response);//Debug
           let campos = $.parseJSON(response);
 
@@ -53,22 +44,13 @@ $(document).ready(function () {
               registros += `
               <tr>
                 <td>
-                  ${element.user_var}
+                  ${element.clave_suc}
                 </td>
                 <td>
-                  ${element.user_name}
+                  ${element.nombre}
                 </td>
                 <td>
-                  ${element.ape_pat}
-                </td>
-                <td>
-                  ${element.ape_mat}
-                </td>
-                <td>
-                  ${element.user_rol}
-                </td>
-                <td>
-                  ${element.user_pas}
+                  ${element.direccion}
                 </td>
                 </tr>`
             });

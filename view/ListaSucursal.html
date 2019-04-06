@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Productos de la pastelería</title>
+    <title>Lista de sucursal</title>
 </head>
 <body>
 
@@ -18,15 +18,15 @@
         </header>
 
         <div class = "titulo mb-3">
-            <h2>Productos de la pastelería</h2>
+            <h2>Sucursales</h2>
         </div>
 
             <form action="" class="">
               <div class="col col-lg-12">
                 <div class="form-group row justify-content-center" align= "center">
-                    <label for="ClaveP" class="col-3" >Buscar por clave</label>
+                    <label for="ClaveS" class="col-3" >Buscar por clave</label>
                     <div class="col-4">
-                        <input type="text"  placeholder="Ingresa la clave del producto" id="CodigoB" class="form-control" required>
+                        <input type="text"  placeholder="Ingresa la clave de la sucursal" id="ClaveS" class="form-control" required>
                     </div>
                     <input type="button" name="" class="btn btn-outline-danger btn-lg" onclick="agregarProd()" value="Buscar">
                 </div>
@@ -42,11 +42,8 @@
                         <thead class="thead-dark">
                             <tr>
                                 <th>Clave</th>
-                                <th>Descripción</th>
-                                <th>Precio</th>
-                                <th>Unidad de medida</th>
-                                <th>Familia</th>
-                                <th>Subfamilia</th>
+                                <th>Nombre de Sucursal</th>
+                                <th>Direccion</th>
                             </tr>
                         </thead>
                         <tbody id="tbody-entrada">
@@ -59,17 +56,17 @@
             <div class="form-group row justify-content-center" align="center">
                 <div class="col-10">
                     <button class="btn btn-outline-danger btn-lg" id="consultar" >Consultar</button>
-                    <a href="menuMaster.html" class="btn btn-outline-danger btn-lg">Regresar</a>
+                  <a href="menuMaster.html" class="btn btn-outline-danger btn-lg">Regresar</a>
                     <!--<a href="menuMaster.html"><img src="../img/regresar.png" width="60" height="60" class="imglogo"></a>-->
                     <br><br>
-                    <a href="AgregarProductos.html"><img src="../img/agregar.png" width="100" height="100" class="imglogo"></a>
-                    
+                    <a href="AgregarSucursal.html"><img src="../img/agregar.png" width="100" height="100" class="imglogo"></a>
+
                 </div>
             </div>
     </div>
     <link rel="stylesheet" type="text/css" href="../estilos/estilo_sucursal.css">
     <link rel="stylesheet" href="../frameworks/bootstrap.min.css">
     <script src="../frameworks/jquery-3.3.1.min.js"></script>
-     <script src="../scripts-js/ConsultarListaProducto.js" type="text/javascript"></script>
+     <script src="../scripts-js/ConsultarListaSucursal.js" type="text/javascript"></script>
 </body>
 </html>

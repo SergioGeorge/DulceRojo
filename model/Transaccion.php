@@ -9,18 +9,18 @@
        {
             //Hacemos un casting de String a Float del campo de 'precio del producto'
             $precio = (float)$precio;
-            
+
             // Debug::historial_dump($clave, $descripcion, $precio, $unidad_medida, $familia, $subfamilia);
             // Debug::historial_print_r($clave, $descripcion, $precio, $unidad_medida, $familia, $subfamilia);
-           
-            $modelo = new Conexion();//Creamos una conexión con la BD            
+
+            $modelo = new Conexion();//Creamos una conexión con la BD
             $conexion = $modelo->getConexion();//Obtenemos la conexión
 
             if(!$conexion)//Si la conexión no se establece, se muestra mensaje de error
                 echo "Error en la conexión_";
-            
+
             try{
-                $sql  = "INSERT INTO LISTA_PASTEL (clave_pastel, descripcion, precio, unidad_medida, familia, subfamilia, existe) 
+                $sql  = "INSERT INTO LISTA_PASTEL (clave_pastel, descripcion, precio, unidad_medida, familia, subfamilia, existe)
                     VALUES(:clave_pastel, :descripcion, :precio, :unidad_medida, :familia, :subfamilia, :existe)";
                 $statement = $conexion->prepare($sql);
                 $statement->bindParam(':clave_pastel', $clave);
@@ -34,23 +34,53 @@
 
                 $statement->execute();
                 return 1;//Regresa 1 si el registro se ingreso correctamente
-                
+
             }catch(Exception $e){
                 return 0;////Regresa 0 si existe algún error
             }
-            
+
         }
-        public function insertarUser($user, $name, $apePa, $apeMa, $userRol, $userPas)
+
+        public function insertarSucursal($clave, $nombre, $direccion)
        {
-           
-            $modelo = new Conexion();//Creamos una conexión con la BD            
+
+            $modelo = new Conexion();//Creamos una conexión con la BD
             $conexion = $modelo->getConexion();//Obtenemos la conexión
 
             if(!$conexion)//Si la conexión no se establece, se muestra mensaje de error
                 echo "Error en la conexión_";
-            
+
             try{
-                $sql  = "INSERT INTO USERS (user_var, user_name, ape_pat, ape_mat, user_rol, user_pass) 
+                $sql  = "INSERT INTO USERS (clave_suc, nombre, direccion)
+                    VALUES(:clave_suc, :nombre, :direccion)";
+                $statement = $conexion->prepare($sql);
+                $statement->bindParam(':clave_suc', $clave);
+                $statement->bindParam(':nombre', $nombre);
+                $statement->bindParam(':direccion', $direccion);
+
+                $statement->execute();
+                return 1;//Regresa 1 si el registro se ingreso correctamente
+
+            }catch(Exception $e){
+                return 0;////Regresa 0 si existe algún error
+            }
+
+        }
+
+
+
+
+        public function insertarUser($user, $name, $apePa, $apeMa, $userRol, $userPas)
+       {
+
+            $modelo = new Conexion();//Creamos una conexión con la BD
+            $conexion = $modelo->getConexion();//Obtenemos la conexión
+
+            if(!$conexion)//Si la conexión no se establece, se muestra mensaje de error
+                echo "Error en la conexión_";
+
+            try{
+                $sql  = "INSERT INTO USERS (user_var, user_name, ape_pat, ape_mat, user_rol, user_pass)
                     VALUES(:user, :name, :apePa, :apeMa, :userRol, :userPas)";
                 $statement = $conexion->prepare($sql);
                 $statement->bindParam(':user', $user);
@@ -62,11 +92,11 @@
 
                 $statement->execute();
                 return 1;//Regresa 1 si el registro se ingreso correctamente
-                
+
             }catch(Exception $e){
                 return 0;////Regresa 0 si existe algún error
             }
-            
+
         }
 
         public function consultarUsuarios()
@@ -77,7 +107,7 @@
             $query = "SELECT user_var, user_name, ape_pat, ape_mat, user_rol, user_pass FROM USERS";
             $statement = $conexion->prepare($query);
             $statement->execute();
-            
+
             while($result = $statement->fetch())
             {
                 $json[] = array(
@@ -86,14 +116,14 @@
                     'ape_pat' => $result['ape_pat'],
                     'ape_mat' => $result['ape_mat'],
                     'user_rol' => $result['user_rol'],
-                    'user_pass' => $result['user_pass']                    
+                    'user_pass' => $result['user_pass']
                 );
             }
             echo json_encode($json);
         }
 
         public function buscarUsuario($search)//Busca un producto en específico
-        {   
+        {
             $rows = null;
             $modelo = new Conexion();
             $conexion = $modelo->getConexion();
@@ -111,13 +141,59 @@
                     'ape_pat' => $result['ape_pat'],
                     'ape_mat' => $result['ape_mat'],
                     'user_rol' => $result['user_rol'],
-                    'user_pass' => $result['user_pass']                    
+                    'user_pass' => $result['user_pass']
                 );
             }
 
-                
+
             echo json_encode($json);
         }
+
+
+        public function consultarSucursales()
+        {
+            $rows = null;
+            $modelo = new Conexion();
+            $conexion = $modelo->getConexion();
+            $query = "SELECT clave_suc, nombre, direccion FROM sucursal";
+            $statement = $conexion->prepare($query);
+            $statement->execute();
+
+            while($result = $statement->fetch())
+            {
+                $json[] = array(
+                    'clave_suc' => $result['clave_suc'],
+                    'nombre' => $result['nombre'],
+                    'direccion' => $result['direccion'],
+                );
+            }
+            echo json_encode($json);
+        }
+
+        public function buscarSucursal($search)//Busca un producto en específico
+        {
+            $rows = null;
+            $modelo = new Conexion();
+            $conexion = $modelo->getConexion();
+            $query = "SELECT clave_suc, nombre, direccion FROM sucursal
+                        WHERE clave_suc LIKE '$search%'";
+            $statement = $conexion->prepare($query);
+            $statement->execute(array($search));
+
+            while($result = $statement->fetch())
+            {
+                if(!$result) die("Error al buscar: ");
+                $json[] = array(
+                    'clave_suc' => $result['clave_suc'],
+                    'nombre' => $result['nombre'],
+                    'direccion' => $result['direccion'],
+                );
+            }
+
+
+            echo json_encode($json);
+        }
+
 
         public function consultarListaPastel()
         {
@@ -127,7 +203,7 @@
             $query = "SELECT clave_pastel, descripcion, precio, unidad_medida, familia, subfamilia FROM lista_pastel";
             $statement = $conexion->prepare($query);
             $statement->execute();
-            
+
             while($result = $statement->fetch())
             {
                 $json[] = array(
@@ -136,14 +212,14 @@
                     'precio' => $result['precio'],
                     'unidad_medida' => $result['unidad_medida'],
                     'familia' => $result['familia'],
-                    'subfamilia' => $result['subfamilia']                    
+                    'subfamilia' => $result['subfamilia']
                 );
             }
             echo json_encode($json);
         }
 
         public function buscarProducto($search)//Busca un producto en específico
-        {   
+        {
             $rows = null;
             $modelo = new Conexion();
             $conexion = $modelo->getConexion();
@@ -161,11 +237,11 @@
                     'precio' => $result['precio'],
                     'unidad_medida' => $result['unidad_medida'],
                     'familia' => $result['familia'],
-                    'subfamilia' => $result['subfamilia']                    
+                    'subfamilia' => $result['subfamilia']
                 );
             }
 
-                
+
             echo json_encode($json);
         }
     }
