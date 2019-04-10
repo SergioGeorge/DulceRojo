@@ -34,13 +34,13 @@
                 <div class="form-group row justify-content-center" align= "center">
                     <label for="ClaveP" class="col-3" >Código de barras</label>
                     <div class="col-4">
-                        <input type="text"  placeholder="Código de barras" id="CodigoB" class="form-control" required>
+                        <input type="text"  placeholder="Código de barras" id="CodigoB" class="form-control" >
                     </div>
                     <input type="button" name="" class="btn btn-outline-danger btn-lg" onclick="agregarProd()" value="Agregar">
                 </div>
 
             </div>
-            </form>
+
 
             <div class="row justify-content-center">
                 <div class="col-10 col-form-label">
@@ -53,14 +53,12 @@
                                 <th>Clave del producto</th>
                                 <th>Nombre del producto</th>
                                 <th>Borrar</th>
+
                             </tr>
                         </thead>
                         <tbody id="tbody-entrada">
                             <tr>
-                                <td>151635156</td>
-                                <td>NG55</td>
-                                <td>Pastel</td>
-                                <td>Borrar</td>
+                              
 
                             </tr>
 
@@ -70,18 +68,18 @@
 
             </div>
             <div class="form-group row justify-content-center" align="center">
-
                 <div class="col-10">
                     <button  class="btn btn-outline-danger btn-lg" >Guardar</button>
                     <a href="menuMaster.html" class="btn btn-outline-danger btn-lg">regresar</a>
                 </div>
-
             </div>
+          </form>
 
         <link rel="stylesheet" type="text/css" href="../estilos/estilo_sucursal.css">
         <!-- <link rel="stylesheet" type="text/css" href="../estilos/estilo_almacen.css"> -->
         <link rel="stylesheet" href="../frameworks/bootstrap.min.css">
-        <script src="../scripts-js/entradaAlmacen.js" language="javascript" type="text/javascript"></script>
+        <script src="../frameworks/jquery-3.3.1.min.js"></script>
+        <script src="../scripts-js/entradaAlmacen.js"></script>
     </div>
 
 </body>

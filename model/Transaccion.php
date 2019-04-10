@@ -17,10 +17,10 @@
             $conexion = $modelo->getConexion();//Obtenemos la conexión
 
             if(!$conexion)//Si la conexión no se establece, se muestra mensaje de error
-                echo "Error en la conexión_";            
+                echo "Error en la conexión_";
             try
             {
-                $sql  = "INSERT INTO lista_pastel (clave_pastel, descripcion, precio, unidad_medida, familia, subfamilia, existe) 
+                $sql  = "INSERT INTO lista_pastel (clave_pastel, descripcion, precio, unidad_medida, familia, subfamilia, existe)
                     VALUES(:clave_pastel, :descripcion, :precio, :unidad_medida, :familia, :subfamilia, :existe)";
                 $statement = $conexion->prepare($sql);
                 $statement->bindParam(':clave_pastel', $clave);
@@ -51,7 +51,7 @@
                 echo "Error en la conexión_";
 
             try{
-                $sql  = "INSERT INTO USERS (clave_suc, nombre, direccion)
+                $sql  = "INSERT INTO sucursal (clave_suc, nombre, direccion)
                     VALUES(:clave_suc, :nombre, :direccion)";
                 $statement = $conexion->prepare($sql);
                 $statement->bindParam(':clave_suc', $clave);
@@ -63,12 +63,38 @@
 
             }catch(Exception $e){
                 return 0;////Regresa 0 si existe algún error
-            }            
+            }
+        }
+
+        public function insertarProducto($clave, $codigo, $estado,$fecha)
+       {
+
+            $modelo = new Conexion();//Creamos una conexión con la BD
+            $conexion = $modelo->getConexion();//Obtenemos la conexión
+
+            if(!$conexion)//Si la conexión no se establece, se muestra mensaje de error
+                echo "Error en la conexión_";
+
+            try{
+                $sql  = "INSERT INTO producto (id_pastel,codigo_barras,estado,fecha_elaboracion)
+                    VALUES(:id_pastel,:codigo_barras,:estado,:fecha_elaboracion)";
+                $statement = $conexion->prepare($sql);
+                $statement->bindParam(':id_pastel', $clave);
+                $statement->bindParam(':codigo_barras', $codigo);
+                $statement->bindParam(':estado', $estado);
+                $statement->bindParam(':fecha_elaboracion', $fecha);
+
+                $statement->execute();
+                return 1;//Regresa 1 si el registro se ingreso correctamente
+
+            }catch(Exception $e){
+                return 0;////Regresa 0 si existe algún error
+            }
         }
 
         public function insertarUser($user, $name, $apePa, $apeMa, $userRol, $userPas)
-        {           
-            $modelo = new Conexion();//Creamos una conexión con la BD            
+        {
+            $modelo = new Conexion();//Creamos una conexión con la BD
             $conexion = $modelo->getConexion();//Obtenemos la conexión
 
             if(!$conexion)//Si la conexión no se establece, se muestra mensaje de error
@@ -239,7 +265,7 @@
 
             echo json_encode($json);
         }
-        
+
     }
 
 ?>
