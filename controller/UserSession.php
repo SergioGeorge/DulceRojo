@@ -9,12 +9,8 @@
             $_SESSION['user'] = $user;
         }
         
-        public function getCurrentUser(){
-            return $_SESSION['user'];
-        }
-        
         public function closeSession(){
-            session_unset();
+            session_unset($_SESSION['user']);
             session_destroy();
         }
     }

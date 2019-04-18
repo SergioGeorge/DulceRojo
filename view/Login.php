@@ -1,3 +1,10 @@
+<?php 
+    session_start(); 
+    if(isset($_SESSION['user'])){ 
+        header("Location: ../view/menuMaster.php"); 
+    } else    
+        session_destroy(); 
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -15,7 +22,7 @@
         </div>
                 
         <div class="formulario mr-5 mt-5 justify-content-center">
-            <form action="" class="col-5 form-group" method="POST">
+            <form action="../controller/ControllerLogin.php" class="col-5 form-group" method="POST">
                 <div class="input-group">
                     <span class="input-group-text" id="basic-addon1"><i class="fas fa-user"></i></span>
                     <input id="usuario" type="text" class="form-control" name="usuario" placeholder="Usuario" required>

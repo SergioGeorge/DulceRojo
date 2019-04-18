@@ -1,3 +1,9 @@
+<?php 
+	session_start(); 
+    if(!isset($_SESSION['user'])){ 
+		session_destroy();
+	}
+?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -14,8 +20,12 @@
         <header>
             <div class = "titulo">
                 <img src="../img/logo.png" alt="">
-                <h1>Sistema de control de inventario</h1>
-            </div>
+				<h1>Sistema de control de inventario</h1>
+				
+			</div>
+			<div class="mr-3" style="text-align: right;">
+				<p class="text-light"><?php echo "Bienvenido " . $_SESSION['user']?></p>
+			</div>
         </header>
         <div id="presentMain">
 			<h2>Bienvenido al sistema de control de inventario de la pastelería Dulce Rojo.</h2>
@@ -57,16 +67,22 @@
 				</div>
 			</div>
 			<div id="reportspage">
-				<a href="login.html"><img src="../img/logout-icon.png" class="imglogo"></a>
+				<a href="../controller/ControllerLogin.php" id="logoutID"><img src="../img/logout-icon.png" class="imglogo"></a>
 				<div class="refmenutext">
 					<!--<a href="Reportes/listReports.html">Logout</a>-->
-				<a href="login.html">Logout</a>
+				<a href="../controller/ControllerLogin.php">Logout</a>
 				</div>
 			</div>
 		</div>
 
-    <script src="js/bootstrap.min.js"></script>
-    <script src="js/bootstrap.min.js"></script>
+		<?php
+			if(isset($_SESSION['user'])){
+				echo "Sesión Exitosa Bienvenido";
+			}else{
+				session_destroy();
+				header("Location: ../view/Login.php");
+			}	
+		?>
     </div>
 </body>
 </html>
