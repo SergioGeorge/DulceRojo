@@ -2,6 +2,7 @@
 	session_start(); 
     if(!isset($_SESSION['user'])){ 
 		session_destroy();
+		header("Location: ../view/Login.php");
 	}
 ?>
 <!DOCTYPE html>
@@ -11,20 +12,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Menu</title>
-		<link rel="stylesheet" type="text/css" href="../estilos/estilo_sucursal.css">
-    <link rel="stylesheet" type="text/css" href="../estilos/menuUser.css">
-    <link rel="stylesheet" href="../frameworks/bootstrap.min.css">
 </head>
 <body>
     <div class="padre">
         <header>
             <div class = "titulo">
                 <img src="../img/logo.png" alt="">
-				<h1>Sistema de control de inventario</h1>
-				
+				<h1>Sistema de control de inventario</h1>				
 			</div>
 			<div class="mr-3" style="text-align: right;">
-				<p class="text-light"><?php echo "Bienvenido " . $_SESSION['user']?></p>
+				<p class="text-light"><?php echo "Bienvenido " . $_SESSION['user'] . "  " . $_SESSION['rol']?></p>
 			</div>
         </header>
         <div id="presentMain">
@@ -33,37 +30,36 @@
 
 		<div id="menutable">
 			<div id="daspage">
-				<a href="Agregarproductos.html"><img src="../img/pastelproducto.png" class="imglogo"></a>
+				<a href="ListaProductos.php"><img src="../img/pastelproducto.png" class="imglogo"></a>
 				<div class="refmenutext">
-					<!--	<a href="Agregarproductos.html">Productos</a>-->
-				<a href="ListaProductos.html">Productos</a>
+					<a href="ListaProductos.php">Productos</a>	
 				</div>
 			</div>
 			<div id="reportspage">
-				<a href="ListaProductos.html"><img src="../img/control-inventario.png" class="imglogo"></a>
+				<a href="#"><img src="../img/control-inventario.png" class="imglogo"></a>
 				<div class="refmenutext">
-					<a href="Reportes/listReports.html">Control del producto</a>
+					<a href="#">Control del producto</a>
 				</div>
 			</div>
 			<div id="reportspage">
-				<a href="GenerarOrden.html"><img src="../img/orden-entrega.png" class="imglogo"></a>
+				<a href="GenerarOrden.php"><img src="../img/orden-entrega.png" class="imglogo"></a>
 				<div class="refmenutext">
 					<!--<a href="Reportes/listReports.html">Ordenes de entrega</a>-->
-					<a href="GenerarOrden.html">Ordenes de entrega</a>
+					<a href="GenerarOrden.php">Ordenes de entrega</a>
 				</div>
 			</div>
 			<div id="reportspage">
-				<a href="AgregarSucursal.html"><img src="../img/sucursal-icono.png" class="imglogo"></a>
+				<a href="ListaSucursal.php"><img src="../img/sucursal-icono.png" class="imglogo"></a>
 				<div class="refmenutext">
 				<!--	<a href="Reportes/listReports.html">Sucursales</a>-->
-					<a href="ListaSucursal.html">Sucursales</a>
+					<a href="ListaSucursal.php">Sucursales</a>
 				</div>
 			</div>
 			<div id="reportspage">
-				<a href="AgregarUsuario.html"><img src="../img/usuario.png" class="imglogo"></a>
+				<a href="ListaUsuarios.php"><img src="../img/usuario.png" class="imglogo"></a>
 				<div class="refmenutext">
 					<!--<a href="Reportes/listReports.html">Usuarios</a>-->
-					<a href="ListaUsuarios.html">Usuarios</a>
+					<a href="ListaUsuarios.php">Usuarios</a>
 				</div>
 			</div>
 			<div id="reportspage">
@@ -74,15 +70,17 @@
 				</div>
 			</div>
 		</div>
-
+	</div>
 		<?php
 			if(isset($_SESSION['user'])){
-				echo "Sesión Exitosa Bienvenido";
+				//echo "Sesión Exitosa Bienvenido";
 			}else{
 				session_destroy();
 				header("Location: ../view/Login.php");
 			}	
 		?>
-    </div>
+	<link rel="stylesheet" type="text/css" href="../estilos/estilo_sucursal.css">
+    <link rel="stylesheet" type="text/css" href="../estilos/menuUser.css">
+    <link rel="stylesheet" href="../frameworks/bootstrap.min.css">
 </body>
 </html>

@@ -1,3 +1,11 @@
+<?php 
+	session_start(); 
+    if(!isset($_SESSION['user'])){ 
+        session_destroy();
+        header("Location: ../view/Login.php");
+    }
+    
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -8,25 +16,28 @@
 </head>
 <body>
     <div class="padre">
-        <div class="row justify-content-start color_rojo pl-5 pb-2 pt-2">
-            <img src="../img/logo.png" alt="">
-            <h1>Sistema de control de inventario</h1>
-        </div>
-
-        <div class = "row justify-content-center mt-4 mb-4">
-            <div class = "col-5">
-                <h2>Agregar Productos</h2>
+        <header>
+            <div class = "titulo">
+                <img src="../img/logo.png" alt="">
+                <h1>Sistema de control de inventario</h1>
             </div>
+            <div class="mr-3" style="text-align: right;">
+				<p class="text-light"><?php echo "Bienvenido " . $_SESSION['user'] . "  " . $_SESSION['rol']?></p>
+			</div>
+        </header>
+        
+        <div class="presentMain">                
+            <h3 style="font-size:30px">Agregar Productos</h3>                
         </div>
-
-        <form class="" method="POST">
+    
+        <form class="" method="POST" style="width:90%; margin-top:40px;">
             <div class="form-group row" align= "center">
                 <label for="claveP" class="col-3" >Clave del producto</label>
                 <div class="col-4">
                     <input type="text" name="clave" placeholder="Clave del producto" id="claveP" class="form-control" required>
                 </div>
             </div>
-            <div class="form-group row " align="center">
+            <div class="form-group row" align="center">
                 <label for="descripcionP" class="col-3" >Nombre del producto</label>
                 <div class="col-4">
                     <input type="text" name="nombre" id="descripcionP" class="form-control" placeholder="Nombre del producto" required>
@@ -66,15 +77,17 @@
                 <div class="col-10">
                     <button  class="btn btn-outline-danger btn-lg">Guardar</button>  
                     <button type="reset" class="btn btn-outline-danger btn-lg">Limpiar</button>
-                      <a href="ListaProductos.html" class="btn btn-outline-danger btn-lg">Regresar</a>
+                
+                    <a href="ListaProductos.php" class="btn btn-outline-danger btn-lg">Regresar</a>
                     <br><br>
-                    <!--<a href="ListaProductos.html"><img src="../img/regresar.png" width="40" height="40" class="imglogo"></a>-->
-
+                    <!-- <a href="ListaProductos.html"><img src="../img/regresar.png" width="40" height="40" class="imglogo"></a> -->
                 </div>
             </div>
-        </form>
+        </form>        
     </div>
-    <link rel="stylesheet" type="text/css" href="../estilos/estilo_login.css">
+    <link rel="stylesheet" type="text/css" href="../estilos/estilo_sucursal.css">
+    <link rel="stylesheet" type="text/css" href="../estilos/menuUser.css">
+    <!-- <link rel="stylesheet" type="text/css" href="../estilos/estilo_login.css"> -->
     <link rel="stylesheet" type="text/css" href="../frameworks/bootstrap.min.css">
     <script src="../frameworks/jquery-3.3.1.min.js"></script>
     <script src="../scripts-js/AgregarProducto.js"></script>

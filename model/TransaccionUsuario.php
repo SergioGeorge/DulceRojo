@@ -1,8 +1,7 @@
 <?php
     class TransaccionUsuario
     {
-        private $usuario;
-        private $password;
+        private $rol;
         /***************Funciones utilizadas para la validación de Login*************************/
         public function buscarUsuario($user, $pass)
         {
@@ -19,26 +18,19 @@
                 return 0;
         }
 
-        public function setUsuario($user)
-        {   
+        public function buscarRol($user){
             $modelo = new Conexion();
             $conexion = $modelo->getConexion();
-            $query = 'SELECT * FROM users WHERE user_var = :user';
-            $statement = $conexion->prepare($query);                    
+            $query = 'SELECT user_var, user_rol FROM users WHERE user_var = :user';
+            $statement = $conexion->prepare($query);
             $statement->execute(['user'=>$user]);
-            
-            while($result = $statement->fetch())
-            {
-                if(!result) die("Error al buscar!");
-                $this->usuario = $result['user_var'];
-            }            
-        }
-            
-        public function getUsuario(){
-            return $this->usuario;
-        }
-        /********************************************/
 
+            $result = $statement->fetch();
+
+            $rol = $result['user_rol'];
+
+            return $rol;
+        }
     }
 
 ?>

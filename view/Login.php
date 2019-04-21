@@ -45,6 +45,5 @@
     <link rel="stylesheet" type="text/css" href="../estilos/estilo_login.css">
     <link rel="stylesheet" href="../frameworks/bootstrap.min.css">
     <script src="../frameworks/jquery-3.3.1.min.js"></script>
-    <script src="../scripts-js/login.js"></script>
 </body>
 </html>

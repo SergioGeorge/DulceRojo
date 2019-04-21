@@ -1,3 +1,9 @@
+<?php 
+	session_start(); 
+    if(!isset($_SESSION['user'])){ 
+		session_destroy();
+	}
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -11,10 +17,13 @@
 
     <div class="padre">
         <header>
-                <div class = "titulo">
-                    <img src="../img/logo.png" alt="">
-                    <h1>Sistema de control de inventario</h1>
-                </div>
+            <div class = "titulo">
+                <img src="../img/logo.png" alt="">
+                <h1>Sistema de control de inventario</h1>
+            </div>
+            <div class="mr-3" style="text-align: right;">
+				<p class="text-light"><?php echo "Bienvenido " . $_SESSION['user'] . "  " . $_SESSION['rol']?></p>
+			</div>
         </header>
 
         <div class = "titulo mb-3">
@@ -56,14 +65,23 @@
             <div class="form-group row justify-content-center" align="center">
                 <div class="col-10">
                     <button class="btn btn-outline-danger btn-lg" id="consultar" >Consultar</button>
-                  <a href="menuMaster.html" class="btn btn-outline-danger btn-lg">Regresar</a>
+                  <a href="menuMaster.php" class="btn btn-outline-danger btn-lg">Regresar</a>
                     <!--<a href="menuMaster.html"><img src="../img/regresar.png" width="60" height="60" class="imglogo"></a>-->
                     <br><br>
-                    <a href="AgregarSucursal.html"><img src="../img/agregar.png" width="100" height="100" class="imglogo"></a>
+                    <a href="AgregarSucursal.php"><img src="../img/agregar.png" width="100" height="100" class="imglogo"></a>
 
                 </div>
             </div>
     </div>
+    <?php
+        if(isset($_SESSION['user'])){
+            //echo "Sesión Exitosa Bienvenido";
+        }else{
+            session_destroy();
+            header("Location: ../view/Login.php");
+        }	
+    ?>
+
     <link rel="stylesheet" type="text/css" href="../estilos/estilo_sucursal.css">
     <link rel="stylesheet" href="../frameworks/bootstrap.min.css">
     <script src="../frameworks/jquery-3.3.1.min.js"></script>

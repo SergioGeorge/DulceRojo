@@ -1,3 +1,10 @@
+<?php 
+	session_start(); 
+    if(!isset($_SESSION['user'])){ 
+        session_destroy();
+        header("Location: ../view/Login.php");
+	}
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -8,10 +15,15 @@
 </head>
 <body>
     <div class="padre">
-        <div class="row justify-content-start color_rojo pl-5 pb-2 pt-2">
-            <img src="../img/logo.png" alt="">
-            <h1>Sistema de control de inventario</h1>
-        </div>
+        <header>
+            <div class = "titulo">
+                <img src="../img/logo.png" alt="">
+                <h1>Sistema de control de inventario</h1>
+            </div>
+            <div class="mr-3" style="text-align: right;">
+				<p class="text-light"><?php echo "Bienvenido " . $_SESSION['user'] . "  " . $_SESSION['rol']?></p>
+			</div>
+        </header>
         <div class = "row ml-5 mb-4 mt-3">
             <div class = "col-3">
                 <h2>Generar Orden</h2>
@@ -63,12 +75,13 @@
                     <button type="submit" class="btn btn-outline-danger btn-lg" >Guardar orden</button>
                     <button type="reset" class="btn btn-outline-danger btn-lg" >Cancelar</button>
                     <!--<a href="menuMaster.html"><img src="../img/regresar.png" width="60" height="60" class="imglogo"></a>-->
-             <a href="menuMaster.html" class="btn btn-outline-danger btn-lg">Regresar</a>
+             <a href="menuMaster.php" class="btn btn-outline-danger btn-lg">Regresar</a>
                 </div>
             </div>
         </form>
     </div>
     <link rel="stylesheet" type="text/css" href="../estilos/estilo_login.css">
+    <link rel="stylesheet" type="text/css" href="../estilos/estilo_sucursal.css">
     <link rel="stylesheet" href="../frameworks/bootstrap.min.css">
     <script src="../frameworks/jquery-3.3.1.min.js"></script>
 </body>

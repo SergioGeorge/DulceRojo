@@ -1,3 +1,9 @@
+<?php 
+	session_start(); 
+    if(!isset($_SESSION['user'])){ 
+		session_destroy();
+	}
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -9,10 +15,16 @@
 <body>
 
     <div class="padre">
-        <div class="row justify-content-start color_rojo pl-5 pb-2 pt-2">
-            <img src="../img/logo.png" alt="">
-            <h1>Sistema de control de inventario</h1>
-        </div>
+        <header>
+            <div class = "titulo">
+                <img src="../img/logo.png" alt="">
+                <h1>Sistema de control de inventario</h1>
+            </div>
+            <div class="mr-3" style="text-align: right;">
+				<p class="text-light"><?php echo "Bienvenido " . $_SESSION['user'] . "  " . $_SESSION['rol']?></p>
+			</div>
+        </header>
+
         <div class = "row justify-content-center mt-4s mb-4">
             <div class = "col-3">
                 <h2>Agregar Sucursal</h2>
@@ -41,14 +53,23 @@
                 <div class="col-10">
                     <button  class="btn btn-outline-danger btn-lg" >Guardar</button>
                     <button type="reset" class="btn btn-outline-danger btn-lg">Limpiar</button>
-                    <a href="menuMaster.html" class="btn btn-outline-danger btn-lg">Regresar</a>
+                    <a href="ListaSucursal.php" class="btn btn-outline-danger btn-lg">Regresar</a>
                 </div>
             </div>
         </form>
     </div>
-    <link rel="stylesheet" type="text/css" href="../estilos/estilo_login.css">
+    <?php
+        if(isset($_SESSION['user'])){
+            //echo "Sesión Exitosa Bienvenido";
+        }else{
+            session_destroy();
+            header("Location: ../view/Login.php");
+        }	
+    ?>
+    <!-- <link rel="stylesheet" type="text/css" href="../estilos/estilo_login.css"> -->
     <link rel="stylesheet" type="text/css" href="../frameworks/bootstrap.min.css">
     <script src="../frameworks/jquery-3.3.1.min.js"></script>
     <script src="../scripts-js/AgregarSucursal.js"></script>
+    <link rel="stylesheet" type="text/css" href="../estilos/estilo_sucursal.css">
 </body>
 </html>
