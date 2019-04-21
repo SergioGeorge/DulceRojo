@@ -36,7 +36,7 @@
                     <div class="col-4">
                         <input type="text"  placeholder="Ingresa la clave del producto" id="CodigoB" class="form-control" required>
                     </div>
-                    <input type="button" name="" class="btn btn-outline-danger btn-lg" onclick="agregarProd()" value="Buscar">
+                    <input type="button" name="" class="btn btn-outline-danger btn-lg" onclick="limpiar()" value="Limpiar">
                 </div>
 
 
@@ -55,6 +55,8 @@
                                 <th>Unidad de medida</th>
                                 <th>Familia</th>
                                 <th>Subfamilia</th>
+                                <th>Editar</th>
+                                <th>Eliminar</th>
                             </tr>
                         </thead>
                         <tbody id="tbody-entrada">
@@ -66,7 +68,7 @@
             </div>
             <div class="form-group row justify-content-center" align="center" style="width:100%;">
                 <div class="col-10">
-                    <button class="btn btn-outline-danger btn-lg" id="consultar" >Consultar</button>
+                    <button class="btn btn-outline-danger btn-lg" id="bConsultar">Consultar</button>
                     <?php
                         $direccionarA = 'menuMaster.php'; 
                         $direccionarB = 'menuUser.php';

@@ -166,7 +166,6 @@
                 );
             }
 
-
             echo json_encode($json);
         }
 
@@ -218,12 +217,14 @@
 
         public function consultarListaPastel()
         {
+            $valor = 1;//El valor 1 indica que el producto existe, 0 no existe
             $rows = null;
             $modelo = new Conexion();
             $conexion = $modelo->getConexion();
-            $query = "SELECT clave_pastel, descripcion, precio, unidad_medida, familia, subfamilia FROM lista_pastel";
+            $query = "SELECT clave_pastel, descripcion, precio, unidad_medida, familia, subfamilia FROM lista_pastel 
+                        WHERE existe = :existe";
             $statement = $conexion->prepare($query);
-            $statement->execute();
+            $statement->execute(array('existe' => $valor));
 
             while($result = $statement->fetch())
             {
@@ -245,7 +246,7 @@
             $modelo = new Conexion();
             $conexion = $modelo->getConexion();
             $query = "SELECT clave_pastel, descripcion, precio, unidad_medida, familia, subfamilia FROM lista_pastel
-                        WHERE clave_pastel LIKE '$search%'";
+                        WHERE clave_pastel LIKE '$search%' AND existe = 1";
             $statement = $conexion->prepare($query);
             $statement->execute(array($search));
 
@@ -264,6 +265,28 @@
 
 
             echo json_encode($json);
+        }
+
+        public function ocultarProducto($claveProducto){
+            $modelo = new Conexion();//Creamos una conexión con la BD
+            $conexion = $modelo->getConexion();//Obtenemos la conexión
+
+            if(!$conexion)//Si la conexión no se establece, se muestra mensaje de error
+                echo "Error en la conexión_";
+
+            try{
+                $valor = 0;//El valor 0 indica que el producto no existe, 1 si existe
+                $sql  = "UPDATE lista_pastel SET existe = :existe WHERE id_pastel = :id_pastel";
+                $statement = $conexion->prepare($sql);
+                $statement->bindParam(':existe', $valor);
+                $statement->bindParam(':id_pastel', $claveProducto);
+
+                $statement->execute();
+                return 1;//Regresa 1 si el registro se oculto
+
+            }catch(Exception $e){
+                return 0;////Regresa 0 si existe algún error
+            }
         }
 
     }
