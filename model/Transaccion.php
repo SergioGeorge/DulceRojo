@@ -1,6 +1,6 @@
 <?php
     // include('class.conexion.php');
-        include('../Debug.php');
+
 
     class Transaccion
     {
@@ -76,20 +76,50 @@
                 echo "Error en la conexión_";
 
             try{
-                $sql  = "INSERT INTO producto (id_pastel,codigo_barras,estado,fecha_elaboracion)
-                    VALUES(:id_pastel,:codigo_barras,:estado,:fecha_elaboracion)";
-                $statement = $conexion->prepare($sql);
-                $statement->bindParam(':id_pastel', $clave);
-                $statement->bindParam(':codigo_barras', $codigo);
-                $statement->bindParam(':estado', $estado);
-                $statement->bindParam(':fecha_elaboracion', $fecha);
+                $query="SELECT clave_pastel FROM lista_pastel WHERE clave_pastel=$codigo";
 
-                $statement->execute();
-                return 1;//Regresa 1 si el registro se ingreso correctamente
+                  $con=mysqli_connect("localhost","root","");
+                  mysqli_select_db($con,"dulce_rojo2");
+                //$statement = $conexion->prepare($query);
+                //$statement->execute();
+                //$query="0";
 
-            }catch(Exception $e){
+                $query = mysqli_num_rows(mysqli_query($con,"SELECT clave_pastel FROM lista_pastel WHERE clave_pastel='$codigo'"));
+                if($query==0){
+                echo 'El producto no existe';
+                }
+                else {
+                  $sql  = "INSERT INTO producto (id_pastel,codigo_barras,estado,fecha_elaboracion)
+                      VALUES(:id_pastel,:codigo_barras,:estado,:fecha_elaboracion)";
+                  $statement = $conexion->prepare($sql);
+                  $statement->bindParam(':id_pastel', $clave);
+                  $statement->bindParam(':codigo_barras', $codigo);
+                  $statement->bindParam(':estado', $estado);
+                  $statement->bindParam(':fecha_elaboracion', $fecha);
+
+                  $statement->execute();
+                  return 1;//Regresa 1 si el registro se ingreso correctamente
+                }
+
+            }
+            catch(Exception $e){
                 return 0;////Regresa 0 si existe algún error
             }
+        }
+
+        public function checarNombre($codigo)
+        {
+
+          $con=mysqli_connect("localhost","root","");
+          mysqli_select_db($con,"dulce_rojo2");
+
+          $nombre = mysqli_query($con,"SELECT descripcion FROM lista_pastel WHERE clave_pastel='$codigo'");
+          if (mysqli_num_rows($nombre) > 0) {
+            while($row = mysqli_fetch_assoc($nombre)) {
+                  return $row["descripcion"];
+            }
+
+          }
         }
 
         public function insertarUser($user, $name, $apePa, $apeMa, $userRol, $userPas)
@@ -221,7 +251,7 @@
             $rows = null;
             $modelo = new Conexion();
             $conexion = $modelo->getConexion();
-            $query = "SELECT clave_pastel, descripcion, precio, unidad_medida, familia, subfamilia FROM lista_pastel 
+            $query = "SELECT clave_pastel, descripcion, precio, unidad_medida, familia, subfamilia FROM lista_pastel
                         WHERE existe = :existe";
             $statement = $conexion->prepare($query);
             $statement->execute(array('existe' => $valor));

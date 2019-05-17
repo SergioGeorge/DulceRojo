@@ -3,20 +3,36 @@ function agregarProd()
 {
 	var pastel = document.getElementById('CodigoB').value;
 	var clave=pastel.substr(0,4);
-	if (pastel != "")
-	{
-		
-		contador=contador+1;
-		console.log(contador);
-		var entrada = '<td>'+pastel+'</td><td>'+clave+'</td><td>PastelAzul</td><td><a href="">Borrar</a></td>';
-		document.getElementById('tbody-entrada').insertRow(-1).innerHTML = entrada;
+	const data = {
 
-	}
-	else {
-		alert("Ningun campo debe deestar vacío")
-	}
-	document.getElementById('CodigoB').value = "";
+		codigo: pastel
+	};
+	$.post("../controller/ControlerNombreTabla.php",data, (response) => {
+		console.log(response);
+
+		if (pastel != "")
+		{
+
+			contador=contador+1;
+			console.log(contador);
+			var entrada = '<td>'+pastel+'</td><td>'+clave+'</td><td>'+response+'</td><td><a href="#child4" class="delete" onclick ="delete_user($(this))">Borrar</a></td>';
+			document.getElementById('tbody-entrada').insertRow(-1).innerHTML = entrada;
+
+		}
+		else {
+			alert("Ningun campo debe deestar vacío")
+		}
+		document.getElementById('CodigoB').value = "";
+	});
+
+
 }
+function delete_user(row)
+    {
+        row.closest('tr').remove();
+
+
+    }
 
 $(document).ready(function () {
 
