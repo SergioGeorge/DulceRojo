@@ -122,6 +122,64 @@
           }
         }
 
+        public function getNameProduct($codigo)
+        {
+            $rows = null;
+            $modelo = new Conexion();
+            $conexion = $modelo->getConexion();
+            $query = "SELECT descripcion FROM LISTA_PASTEL WHERE clave_pastel='$codigo'";
+            $statement = $conexion->prepare($query);
+            $statement->execute();
+
+            while($result = $statement->fetch())
+            {
+                $json[] = array(
+                    'descripcion' => $result['descripcion']
+                );
+            }
+            echo json_encode($json);
+        }
+
+        public function getNoOrden($no_Orden)
+        {
+            $rows = null;
+            $modelo = new Conexion();
+            $conexion = $modelo->getConexion();
+            $query = "SELECT clave_pastel FROM DETALLE_ORDEN WHERE no_orden='$no_Orden'";
+            $statement = $conexion->prepare($query);
+            $statement->execute();
+
+            while($result = $statement->fetch())
+            {
+                $json[] = array(
+                    'clave_pastel' => $result['clave_pastel']
+                );
+            }
+            echo json_encode($json);
+        }
+
+        public function updateInvent($codBar, $estado)
+        {
+            $modelo = new Conexion();//Creamos una conexión con la BD
+            $conexion = $modelo->getConexion();//Obtenemos la conexión
+
+            if(!$conexion)//Si la conexión no se establece, se muestra mensaje de error
+                echo "Error en la conexión_";
+
+            try{
+                $sql  = "UPDATE PRODUCTO SET estado = :estado WHERE codigo_barras = :codBar";
+                $statement = $conexion->prepare($sql);
+                $statement->bindParam(':estado', $estado);
+                $statement->bindParam(':codBar', $codBar);
+
+                $statement->execute();
+                return 1;//Regresa 1 si el registro se ingreso correctamente
+
+            }catch(Exception $e){
+                return 0;////Regresa 0 si existe algún error
+            }
+        }
+
         public function insertarUser($user, $name, $apePa, $apeMa, $userRol, $userPas)
         {
             $modelo = new Conexion();//Creamos una conexión con la BD
