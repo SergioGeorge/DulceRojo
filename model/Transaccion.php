@@ -20,7 +20,7 @@
                 echo "Error en la conexión_";
             try
             {
-                $sql  = "INSERT INTO lista_pastel (clave_pastel, descripcion, precio, unidad_medida, familia, subfamilia, existe)
+                $sql  = "INSERT INTO LISTA_PASTEL (clave_pastel, descripcion, precio, unidad_medida, familia, subfamilia, existe)
                     VALUES(:clave_pastel, :descripcion, :precio, :unidad_medida, :familia, :subfamilia, :existe)";
                 $statement = $conexion->prepare($sql);
                 $statement->bindParam(':clave_pastel', $clave);
@@ -51,7 +51,7 @@
                 echo "Error en la conexión_";
 
             try{
-                $sql  = "INSERT INTO sucursal (clave_suc, nombre, direccion)
+                $sql  = "INSERT INTO SUCURSAL (clave_suc, nombre, direccion)
                     VALUES(:clave_suc, :nombre, :direccion)";
                 $statement = $conexion->prepare($sql);
                 $statement->bindParam(':clave_suc', $clave);
@@ -76,7 +76,7 @@
                 echo "Error en la conexión_";
 
             try{
-                $query="SELECT clave_pastel FROM lista_pastel WHERE clave_pastel=$codigo";
+                $query="SELECT clave_pastel FROM LISTA_PASTEL WHERE clave_pastel=$codigo";
 
                   $con=mysqli_connect("localhost","root","");
                   mysqli_select_db($con,"dulce_rojo2");
@@ -84,7 +84,7 @@
                 //$statement->execute();
                 //$query="0";
 
-                $query = mysqli_num_rows(mysqli_query($con,"SELECT clave_pastel FROM lista_pastel WHERE clave_pastel='$codigo'"));
+                $query = mysqli_num_rows(mysqli_query($con,"SELECT clave_pastel FROM LISTA_PASTEL WHERE clave_pastel='$codigo'"));
                 if($query==0){
                 echo 'El producto no existe';
                 }
@@ -113,7 +113,7 @@
           $con=mysqli_connect("localhost","root","");
           mysqli_select_db($con,"dulce_rojo2");
 
-          $nombre = mysqli_query($con,"SELECT descripcion FROM lista_pastel WHERE clave_pastel='$codigo'");
+          $nombre = mysqli_query($con,"SELECT descripcion FROM LISTA_PASTEL WHERE clave_pastel='$codigo'");
           if (mysqli_num_rows($nombre) > 0) {
             while($row = mysqli_fetch_assoc($nombre)) {
                   return $row["descripcion"];
@@ -167,7 +167,7 @@
                 echo "Error en la conexión_";
 
             try{
-                $sql  = "UPDATE PRODUCTO SET estado = :estado WHERE codigo_barras = :codBar";
+                $sql  = "UPDATE INVENTARIO SET estado = :estado WHERE codigo_barras = :codBar";
                 $statement = $conexion->prepare($sql);
                 $statement->bindParam(':estado', $estado);
                 $statement->bindParam(':codBar', $codBar);
@@ -263,7 +263,7 @@
             $rows = null;
             $modelo = new Conexion();
             $conexion = $modelo->getConexion();
-            $query = "SELECT clave_suc, nombre, direccion FROM sucursal";
+            $query = "SELECT clave_suc, nombre, direccion FROM SUCURSAL";
             $statement = $conexion->prepare($query);
             $statement->execute();
 
@@ -283,7 +283,7 @@
             $rows = null;
             $modelo = new Conexion();
             $conexion = $modelo->getConexion();
-            $query = "SELECT clave_suc, nombre, direccion FROM sucursal
+            $query = "SELECT clave_suc, nombre, direccion FROM SUCURSAL
                         WHERE clave_suc LIKE '$search%'";
             $statement = $conexion->prepare($query);
             $statement->execute(array($search));
@@ -309,7 +309,7 @@
             $rows = null;
             $modelo = new Conexion();
             $conexion = $modelo->getConexion();
-            $query = "SELECT clave_pastel, descripcion, precio, unidad_medida, familia, subfamilia FROM lista_pastel
+            $query = "SELECT clave_pastel, descripcion, precio, unidad_medida, familia, subfamilia FROM LISTA_PASTEL
                         WHERE existe = :existe";
             $statement = $conexion->prepare($query);
             $statement->execute(array('existe' => $valor));
@@ -333,7 +333,7 @@
             $rows = null;
             $modelo = new Conexion();
             $conexion = $modelo->getConexion();
-            $query = "SELECT clave_pastel, descripcion, precio, unidad_medida, familia, subfamilia FROM lista_pastel
+            $query = "SELECT clave_pastel, descripcion, precio, unidad_medida, familia, subfamilia FROM LISTA_PASTEL
                         WHERE clave_pastel LIKE '$search%' AND existe = 1";
             $statement = $conexion->prepare($query);
             $statement->execute(array($search));
@@ -364,7 +364,7 @@
 
             try{
                 $valor = 0;//El valor 0 indica que el producto no existe, 1 si existe
-                $sql  = "UPDATE lista_pastel SET existe = :existe WHERE id_pastel = :id_pastel";
+                $sql  = "UPDATE LISTA_PASTEL SET existe = :existe WHERE id_pastel = :id_pastel";
                 $statement = $conexion->prepare($sql);
                 $statement->bindParam(':existe', $valor);
                 $statement->bindParam(':id_pastel', $claveProducto);
