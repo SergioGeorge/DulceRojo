@@ -127,8 +127,9 @@
             $rows = null;
             $modelo = new Conexion();
             $conexion = $modelo->getConexion();
-            $query = "SELECT descripcion FROM LISTA_PASTEL WHERE clave_pastel='$codigo'";
+            $query = "SELECT clave_pastel, descripcion FROM LISTA_PASTEL WHERE clave_pastel = :codigo";
             $statement = $conexion->prepare($query);
+            $statement->bindParam(':codigo', $codigo);
             $statement->execute();
 
             while($result = $statement->fetch())
