@@ -8,6 +8,6 @@
 
 
     $transaccion = new Transaccion();
-    $respuesta = $transaccion->checarNombre($cod);
+    $respuesta = $transaccion->getNameProduct($cod);
     echo $respuesta;//track********
 ?>
