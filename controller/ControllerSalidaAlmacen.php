@@ -5,6 +5,8 @@
     $codBar = $_POST['codBar'];
     $estado = $_POST['estado'];
 
+    //echo $codBar;
+
     $transaccion = new Transaccion();
     $respuesta = $transaccion->updateInvent($codBar, $estado);
     echo $respuesta;

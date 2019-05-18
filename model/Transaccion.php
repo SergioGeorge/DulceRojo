@@ -234,14 +234,15 @@
             $rows = null;
             $modelo = new Conexion();
             $conexion = $modelo->getConexion();
-            $query = "SELECT clave_pastel FROM DETALLE_ORDEN WHERE no_orden='$no_Orden'";
+            $query = "SELECT id_pastel FROM CANTIDAD_ORDEN WHERE no_orden = :no_Orden";
             $statement = $conexion->prepare($query);
+            $statement->bindParam(':no_Orden', $no_Orden);
             $statement->execute();
 
             while($result = $statement->fetch())
             {
                 $json[] = array(
-                    'clave_pastel' => $result['clave_pastel']
+                    'clave_pastel' => $result['id_pastel']
                 );
             }
             echo json_encode($json);
@@ -265,7 +266,7 @@
                 return 1;//Regresa 1 si el registro se ingreso correctamente
 
             }catch(Exception $e){
-                return 0;////Regresa 0 si existe algún error
+                return $e;////Regresa 0 si existe algún error
             }
         }
 
