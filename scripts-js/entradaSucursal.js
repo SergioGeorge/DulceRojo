@@ -5,7 +5,7 @@ function agregarProd()
 	var clave=pastel.substr(0,4);
 	const data = {
 
-		codigo: pastel
+		codigo: clave
 	};
 	$.post("../controller/ControlerNombreTabla.php",data, (response) => {
 		console.log(response);
@@ -47,8 +47,7 @@ $(document).ready(function () {
 		        const data = {
 		          clave: clave,
 		          codigo: deb,
-							estado:'Sucursal',
-		        date: '20'+fecha
+							estado:'Sucursal'
 		        };
 
 		        console.log(data);

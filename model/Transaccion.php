@@ -102,7 +102,7 @@
                 echo "Error en la conexión_";
 
             try{
-                $query="SELECT clave_pastel FROM LISTA_PASTEL WHERE clave_pastel=$codigo";
+                $query="SELECT clave_pastel FROM lista_pastel WHERE clave_pastel=$clave";
 
                   $con=mysqli_connect("localhost","root","");
                   mysqli_select_db($con,"dulce_rojo2");
@@ -110,12 +110,12 @@
                 //$statement->execute();
                 //$query="0";
 
-                $query = mysqli_num_rows(mysqli_query($con,"SELECT clave_pastel FROM LISTA_PASTEL WHERE clave_pastel='$codigo'"));
+                $query = mysqli_num_rows(mysqli_query($con,"SELECT clave_pastel FROM lista_pastel WHERE clave_pastel='$clave'"));
                 if($query==0){
                 echo 'El producto no existe';
                 }
                 else {
-                  $sql  = "INSERT INTO producto (id_pastel,codigo_barras,estado,fecha_elaboracion)
+                  $sql  = "INSERT INTO inventario (id_pastel,codigo_barras,estado,fecha_elaboracion)
                       VALUES(:id_pastel,:codigo_barras,:estado,:fecha_elaboracion)";
                   $statement = $conexion->prepare($sql);
                   $statement->bindParam(':id_pastel', $clave);
@@ -132,6 +132,51 @@
                 return 0;////Regresa 0 si existe algún error
             }
         }
+
+        public function insertarProductoSucursal($clave, $codBar,$estado)
+       {
+
+            $modelo = new Conexion();//Creamos una conexión con la BD
+            $conexion = $modelo->getConexion();//Obtenemos la conexión
+
+            if(!$conexion)//Si la conexión no se establece, se muestra mensaje de error
+                echo "Error en la conexión_";
+
+            try{
+                $query="SELECT clave_pastel FROM lista_pastel WHERE clave_pastel=$clave";
+
+                  $con=mysqli_connect("localhost","root","");
+                  mysqli_select_db($con,"dulce_rojo2");
+                //$statement = $conexion->prepare($query);
+                //$statement->execute();
+                //$query="0";
+
+                $query = mysqli_num_rows(mysqli_query($con,"SELECT id_pastel FROM inventario WHERE id_pastel='$clave'"));
+                $query2 = mysqli_num_rows(mysqli_query($con,"SELECT id_pastel FROM cantidad_orden WHERE id_pastel='$clave'"));
+                if($query!=0 and $query2!=0 ){
+
+
+                      $sql  = "UPDATE inventario SET estado = :estado WHERE codigo_barras = :codBar";
+                      $statement = $conexion->prepare($sql);
+                      $statement->bindParam(':estado', $estado);
+                      $statement->bindParam(':codBar', $codBar);
+
+                      $statement->execute();
+                      return 1;//Regresa 1 si el registro se ingreso correctamente
+
+
+                return 1;//Regresa 1 si el registro se ingreso correctamente
+                }
+                else {
+                  echo 'El producto no existe';
+                }
+
+            }
+            catch(Exception $e){
+                return 0;////Regresa 0 si existe algún error
+            }
+        }
+
 
         public function checarNombre($codigo)
         {
