@@ -76,15 +76,15 @@
                  echo "Error en la conexión_";
  
              try{
-                 $query="SELECT clave_pastel FROM lista_pastel WHERE clave_pastel=$id_pastel";
+                 $query="SELECT clave_pastel FROM LISTA_PASTEL WHERE clave_pastel=$id_pastel";
  
-                   $con=mysqli_connect("localhost","root","");
-                   mysqli_select_db($con,"dulce_rojo2");
+                   $con=mysqli_connect("localhost","oa4mdl9mlmsi","Nagato_32");
+                  mysqli_select_db($con,"DulceRojo");
                  //$statement = $conexion->prepare($query);
                  //$statement->execute();
                  //$query="0";
  
-                 $query = mysqli_num_rows(mysqli_query($con,"SELECT clave_pastel FROM lista_pastel WHERE clave_pastel='$id_pastel'"));
+                 $query = mysqli_num_rows(mysqli_query($con,"SELECT clave_pastel FROM LISTA_PASTEL WHERE clave_pastel='$id_pastel'"));
                  if($query==0){
                  echo 'El producto no existe';
                  }
@@ -119,15 +119,15 @@
                 echo "Error en la conexión_";
 
             try{
-                $query="SELECT clave_pastel FROM lista_pastel WHERE clave_pastel=$clave";
+                $query="SELECT clave_pastel FROM LISTA_PASTEL WHERE clave_pastel=$clave";
 
-                  $con=mysqli_connect("localhost","root","");
-                  mysqli_select_db($con,"dulce_rojo2");
+                  $con=mysqli_connect("localhost","oa4mdl9mlmsi","Nagato_32");
+                  mysqli_select_db($con,"DulceRojo");
                 //$statement = $conexion->prepare($query);
                 //$statement->execute();
                 //$query="0";
 
-                $query = mysqli_num_rows(mysqli_query($con,"SELECT clave_pastel FROM lista_pastel WHERE clave_pastel='$clave'"));
+                $query = mysqli_num_rows(mysqli_query($con,"SELECT clave_pastel FROM LISTA_PASTEL WHERE clave_pastel='$clave'"));
                 if($query==0){
                 echo 'El producto no existe';
                 }
@@ -160,20 +160,20 @@
                 echo "Error en la conexión_";
 
             try{
-                $query="SELECT clave_pastel FROM lista_pastel WHERE clave_pastel=$clave";
+                $query="SELECT clave_pastel FROM LISTA_PASTEL WHERE clave_pastel=$clave";
 
-                  $con=mysqli_connect("localhost","root","");
-                  mysqli_select_db($con,"dulce_rojo2");
+                  $con=mysqli_connect("localhost","oa4mdl9mlmsi","Nagato_32");
+                  mysqli_select_db($con,"DulceRojo");
                 //$statement = $conexion->prepare($query);
                 //$statement->execute();
                 //$query="0";
 
-                $query = mysqli_num_rows(mysqli_query($con,"SELECT id_pastel FROM inventario WHERE id_pastel='$clave'"));
-                $query2 = mysqli_num_rows(mysqli_query($con,"SELECT id_pastel FROM cantidad_orden WHERE id_pastel='$clave'"));
+                $query = mysqli_num_rows(mysqli_query($con,"SELECT id_pastel FROM INVENTARIO WHERE id_pastel='$clave'"));
+                $query2 = mysqli_num_rows(mysqli_query($con,"SELECT id_pastel FROM CANTIDAD_ORDEN WHERE id_pastel='$clave'"));
                 if($query!=0 and $query2!=0 ){
 
 
-                      $sql  = "UPDATE inventario SET estado = :estado WHERE codigo_barras = :codBar";
+                      $sql  = "UPDATE INVENTARIO SET estado = :estado WHERE codigo_barras = :codBar";
                       $statement = $conexion->prepare($sql);
                       $statement->bindParam(':estado', $estado);
                       $statement->bindParam(':codBar', $codBar);
@@ -198,8 +198,8 @@
         public function checarNombre($codigo)
         {
 
-          $con=mysqli_connect("localhost","root","");
-          mysqli_select_db($con,"dulce_rojo2");
+          $con=mysqli_connect("localhost","oa4mdl9mlmsi","Nagato_32");
+            mysqli_select_db($con,"DulceRojo");
 
           $nombre = mysqli_query($con,"SELECT descripcion FROM LISTA_PASTEL WHERE clave_pastel='$codigo'");
           if (mysqli_num_rows($nombre) > 0) {
