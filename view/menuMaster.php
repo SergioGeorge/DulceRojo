@@ -36,9 +36,9 @@
 				</div>
 			</div>
 			<div id="reportspage">
-				<a href="#"><img src="../img/control-inventario.png" class="imglogo"></a>
+				<a href="ControlProducto.php"><img src="../img/control-inventario.png" class="imglogo"></a>
 				<div class="refmenutext">
-					<a href="#">Control del producto</a>
+					<a href="ControlProducto.php">Control del producto</a>
 				</div>
 			</div>
 			<div id="reportspage">
