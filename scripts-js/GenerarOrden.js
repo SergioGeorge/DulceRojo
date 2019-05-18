@@ -37,11 +37,18 @@ $(document).ready(function () {
 
 		$('form').submit(e => {
             for (var i=1 ; i <= contador; i++) {
+                var deb=document.getElementById("tbody-entrada").rows[i].cells[0].innerHTML;
+                var deb2=document.getElementById("tbody-entrada").rows[i].cells[1].innerHTML;
+                var deb3=document.getElementById("tbody-entrada").rows[i].cells[2].innerHTML;
+                var can=deb.substr(0,11);
+                var orden=deb2.substr(0,11);
+                var pastel=deb3.substr(0,11);
+
         e.preventDefault();
         const data = {
-            cantidad: $('#cantidad').val(),
-            no_orden: $('#no_orden').val(),
-            id_pastel: $('#id_pastel').val()
+            cantidad: can,
+            no_orden: orden,
+            id_pastel: pastel
           };
 
         console.log(data);
