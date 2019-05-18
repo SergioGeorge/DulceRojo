@@ -79,7 +79,7 @@
                 $query="SELECT clave_pastel FROM lista_pastel WHERE clave_pastel=$clave";
 
                   $con=mysqli_connect("localhost","root","");
-                  mysqli_select_db($con,"DulceRojo");
+                  mysqli_select_db($con,"dulce_rojo2");
                 //$statement = $conexion->prepare($query);
                 //$statement->execute();
                 //$query="0";
@@ -120,7 +120,7 @@
                 $query="SELECT clave_pastel FROM lista_pastel WHERE clave_pastel=$clave";
 
                   $con=mysqli_connect("localhost","root","");
-                  mysqli_select_db($con,"DulceRojo");
+                  mysqli_select_db($con,"dulce_rojo2");
                 //$statement = $conexion->prepare($query);
                 //$statement->execute();
                 //$query="0";
