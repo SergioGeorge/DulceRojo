@@ -47,12 +47,13 @@
                 <div class="col-7 col-form-label">
 
                     <!--TABLA PARA DATOS PBP-->
-                    <table class="table table-striped" id="table-control">
+                    <table class="table table-striped" id="table-entrada">
                         <thead class="thead-dark">
                             <tr>
-                                <th>Codigo de barras</th>
                                 <th>Producto</th>
+                                <th>Codigo de barras</th>
                                 <th>Estado</th>
+                                <th>Fecha de elaboracion</th>
                             </tr>
                         </thead>
                         <tbody id="tbody-entrada">
@@ -81,6 +82,7 @@
     <link rel="stylesheet" type="text/css" href="../estilos/estilo_sucursal.css">
     <link rel="stylesheet" href="../frameworks/bootstrap.min.css">
     <script src="../frameworks/jquery-3.3.1.min.js"></script>
+    <script src="../scripts-js/controlProducto.js" type="text/javascript"></script>
     
      <?php
         if(isset($_SESSION['user'])){

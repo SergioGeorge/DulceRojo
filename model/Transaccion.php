@@ -258,12 +258,34 @@
         }
 
 
+        public function consultarInventario()
+        {
+            $rows = null;
+            $modelo = new Conexion();
+            $conexion = $modelo->getConexion();
+            $query = "SELECT id_pastel, codigo_barras, estado, fecha_elaboracion FROM INVENTARIO";
+            $statement = $conexion->prepare($query);
+            $statement->execute();
+
+            while($result = $statement->fetch())
+            {
+                $json[] = array(
+                    'id_pastel' => $result['id_pastel'],
+                    'codigo_barras' => $result['codigo_barras'],
+                    'estado' => $result['estado'],
+                    'fecha_elaboracion' => $result['fecha_elaboracion'],
+                );
+            }
+            echo json_encode($json);
+        }
+
+
         public function consultarSucursales()
         {
             $rows = null;
             $modelo = new Conexion();
             $conexion = $modelo->getConexion();
-            $query = "SELECT clave_suc, nombre, direccion FROM sucursal";
+            $query = "SELECT clave_suc, nombre, direccion FROM SUCURSAL";
             $statement = $conexion->prepare($query);
             $statement->execute();
 
