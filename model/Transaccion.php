@@ -66,6 +66,32 @@
             }
         }
 
+        public function insertarOrden($cantidad, $no_orden, $id_pastel)
+       {
+
+            $modelo = new Conexion();//Creamos una conexión con la BD
+            $conexion = $modelo->getConexion();//Obtenemos la conexión
+
+            if(!$conexion)//Si la conexión no se establece, se muestra mensaje de error
+                echo "Error en la conexión_";
+
+            try{
+                $sql  = "INSERT INTO CANTIDAD_ORDEN (cantidad, no_orden, id_pastel)
+                    VALUES(:cantidad, :no_orden, :id_pastel)";
+                $statement = $conexion->prepare($sql);
+                $statement->bindParam(':cantidad', $cantidad);
+                $statement->bindParam(':no_orden', $no_orden);
+                $statement->bindParam(':id_pastel', $id_pastel);
+
+                $statement->execute();
+                return 1;//Regresa 1 si el registro se ingreso correctamente
+
+            }catch(Exception $e){
+                return 0;////Regresa 0 si existe algún error
+            }
+        }
+
+
         public function insertarProducto($clave, $codigo, $estado,$fecha)
        {
 
