@@ -5,9 +5,9 @@ function agregarProd()
 	var clave=pastel.substr(0,4);
 	const data = {
 
-		codigo: pastel
+		codigo: clave
 	};
-	$.post("../controller/ControlerNombreTabla.php",data, (response) => {
+	$.post("../controller/ControllerNombreProduct.php",data, (response) => {
 		console.log(response);
 
 		let campos = $.parseJSON(response);
@@ -46,7 +46,7 @@ $(document).ready(function () {
 		e.preventDefault();
 		const noOrden = {
 			no_Ord: $('#NumeroO').val()
-		}
+		};
 
 		var claves = [];
 		var list_claves = [];
@@ -71,7 +71,7 @@ $(document).ready(function () {
 
 		        campos.forEach(element => {
 		        	claves.push(element.clave_pastel);
-		        }
+		        });
 		        claves.sort();
 				list_claves.sort();
 				compare = claves.length==list_claves.length && list_claves.every(function(v,i) { return v === list_claves[i] } );
@@ -82,16 +82,16 @@ $(document).ready(function () {
 						const product = {
 							codBar: list_cb[i],
 							estado: 'Transporte'
-						}
+						};
 						$.post("../controller/ControllerSalidaAlmacen.php",product, (response) => {
-							console.log(response)
+							console.log(response);
 							if(response == 1)
 							{
 								console.log("Registro correcto de: "+list_cb[i]);
 							}
 							else
 							{
-								console.log("ERROR en: "+list_cb[i])
+								console.log("ERROR en: "+list_cb[i]);
 							}
 						});
 					}
