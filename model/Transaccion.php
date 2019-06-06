@@ -20,7 +20,7 @@
                 echo "Error en la conexión_";
             try
             {
-                $sql  = "INSERT INTO lista_pastel (clave_pastel, descripcion, precio, unidad_medida, familia, subfamilia, existe)
+                $sql  = "INSERT INTO LISTA_PASTEL (clave_pastel, descripcion, precio, unidad_medida, familia, subfamilia, existe)
                     VALUES(:clave_pastel, :descripcion, :precio, :unidad_medida, :familia, :subfamilia, :existe)";
                 $statement = $conexion->prepare($sql);
                 $statement->bindParam(':clave_pastel', $clave);
@@ -51,7 +51,7 @@
                 echo "Error en la conexión_";
 
             try{
-                $sql  = "INSERT INTO sucursal (clave_suc, nombre, direccion)
+                $sql  = "INSERT INTO SUCURSAL (clave_suc, nombre, direccion)
                     VALUES(:clave_suc, :nombre, :direccion)";
                 $statement = $conexion->prepare($sql);
                 $statement->bindParam(':clave_suc', $clave);
@@ -66,6 +66,49 @@
             }
         }
 
+        public function insertarOrden($cantidad, $no_orden, $id_pastel)
+        {
+ 
+             $modelo = new Conexion();//Creamos una conexión con la BD
+             $conexion = $modelo->getConexion();//Obtenemos la conexión
+ 
+             if(!$conexion)//Si la conexión no se establece, se muestra mensaje de error
+                 echo "Error en la conexión_";
+ 
+             try{
+                 $query="SELECT clave_pastel FROM LISTA_PASTEL WHERE clave_pastel=$id_pastel";
+ 
+                   $con=mysqli_connect("localhost","oa4mdl9mlmsi","Nagato_32");
+                  mysqli_select_db($con,"DulceRojo");
+                 //$statement = $conexion->prepare($query);
+                 //$statement->execute();
+                 //$query="0";
+ 
+                 $query = mysqli_num_rows(mysqli_query($con,"SELECT clave_pastel FROM LISTA_PASTEL WHERE clave_pastel='$id_pastel'"));
+                 if($query==0){
+                 echo 'El producto no existe';
+                 }
+                 else {
+                   $sql  = "INSERT INTO CANTIDAD_ORDEN(cantidad,no_orden,id_pastel)
+                       VALUES(:cantidad,:no_orden,:id_pastel)";
+                   $statement = $conexion->prepare($sql);
+                   $statement->bindParam(':cantidad', $cantidad);
+                   $statement->bindParam(':no_orden', $no_orden);
+                   $statement->bindParam(':id_pastel', $id_pastel);
+ 
+                   $statement->execute();
+                   return 1;//Regresa 1 si el registro se ingreso correctamente
+                 }
+ 
+             }
+             catch(Exception $e){
+                 return 0;////Regresa 0 si existe algún error
+             }
+         }
+ 
+
+
+
         public function insertarProducto($clave, $codigo, $estado,$fecha)
        {
 
@@ -76,20 +119,20 @@
                 echo "Error en la conexión_";
 
             try{
-                $query="SELECT clave_pastel FROM lista_pastel WHERE clave_pastel=$codigo";
+                $query="SELECT clave_pastel FROM LISTA_PASTEL WHERE clave_pastel=$clave";
 
-                  $con=mysqli_connect("localhost","root","");
-                  mysqli_select_db($con,"dulce_rojo2");
+                  $con=mysqli_connect("localhost","oa4mdl9mlmsi","Nagato_32");
+                  mysqli_select_db($con,"DulceRojo");
                 //$statement = $conexion->prepare($query);
                 //$statement->execute();
                 //$query="0";
 
-                $query = mysqli_num_rows(mysqli_query($con,"SELECT clave_pastel FROM lista_pastel WHERE clave_pastel='$codigo'"));
+                $query = mysqli_num_rows(mysqli_query($con,"SELECT clave_pastel FROM LISTA_PASTEL WHERE clave_pastel='$clave'"));
                 if($query==0){
                 echo 'El producto no existe';
                 }
                 else {
-                  $sql  = "INSERT INTO producto (id_pastel,codigo_barras,estado,fecha_elaboracion)
+                  $sql  = "INSERT INTO inventario (id_pastel,codigo_barras,estado,fecha_elaboracion)
                       VALUES(:id_pastel,:codigo_barras,:estado,:fecha_elaboracion)";
                   $statement = $conexion->prepare($sql);
                   $statement->bindParam(':id_pastel', $clave);
@@ -107,13 +150,58 @@
             }
         }
 
+        public function insertarProductoSucursal($clave, $codBar,$estado)
+       {
+
+            $modelo = new Conexion();//Creamos una conexión con la BD
+            $conexion = $modelo->getConexion();//Obtenemos la conexión
+
+            if(!$conexion)//Si la conexión no se establece, se muestra mensaje de error
+                echo "Error en la conexión_";
+
+            try{
+                $query="SELECT clave_pastel FROM LISTA_PASTEL WHERE clave_pastel=$clave";
+
+                  $con=mysqli_connect("localhost","oa4mdl9mlmsi","Nagato_32");
+                  mysqli_select_db($con,"DulceRojo");
+                //$statement = $conexion->prepare($query);
+                //$statement->execute();
+                //$query="0";
+
+                $query = mysqli_num_rows(mysqli_query($con,"SELECT id_pastel FROM INVENTARIO WHERE id_pastel='$clave'"));
+                $query2 = mysqli_num_rows(mysqli_query($con,"SELECT id_pastel FROM CANTIDAD_ORDEN WHERE id_pastel='$clave'"));
+                if($query!=0 and $query2!=0 ){
+
+
+                      $sql  = "UPDATE INVENTARIO SET estado = :estado WHERE codigo_barras = :codBar";
+                      $statement = $conexion->prepare($sql);
+                      $statement->bindParam(':estado', $estado);
+                      $statement->bindParam(':codBar', $codBar);
+
+                      $statement->execute();
+                      return 1;//Regresa 1 si el registro se ingreso correctamente
+
+
+                return 1;//Regresa 1 si el registro se ingreso correctamente
+                }
+                else {
+                  echo 'El producto no existe';
+                }
+
+            }
+            catch(Exception $e){
+                return 0;////Regresa 0 si existe algún error
+            }
+        }
+
+
         public function checarNombre($codigo)
         {
 
-          $con=mysqli_connect("localhost","root","");
-          mysqli_select_db($con,"dulce_rojo2");
+          $con=mysqli_connect("localhost","oa4mdl9mlmsi","Nagato_32");
+            mysqli_select_db($con,"DulceRojo");
 
-          $nombre = mysqli_query($con,"SELECT descripcion FROM lista_pastel WHERE clave_pastel='$codigo'");
+          $nombre = mysqli_query($con,"SELECT descripcion FROM LISTA_PASTEL WHERE clave_pastel='$codigo'");
           if (mysqli_num_rows($nombre) > 0) {
             while($row = mysqli_fetch_assoc($nombre)) {
                   return $row["descripcion"];
@@ -127,8 +215,9 @@
             $rows = null;
             $modelo = new Conexion();
             $conexion = $modelo->getConexion();
-            $query = "SELECT descripcion FROM LISTA_PASTEL WHERE clave_pastel='$codigo'";
+            $query = "SELECT clave_pastel, descripcion FROM LISTA_PASTEL WHERE clave_pastel = :codigo";
             $statement = $conexion->prepare($query);
+            $statement->bindParam(':codigo', $codigo);
             $statement->execute();
 
             while($result = $statement->fetch())
@@ -167,7 +256,7 @@
                 echo "Error en la conexión_";
 
             try{
-                $sql  = "UPDATE PRODUCTO SET estado = :estado WHERE codigo_barras = :codBar";
+                $sql  = "UPDATE INVENTARIO SET estado = :estado WHERE codigo_barras = :codBar";
                 $statement = $conexion->prepare($sql);
                 $statement->bindParam(':estado', $estado);
                 $statement->bindParam(':codBar', $codBar);
@@ -258,12 +347,34 @@
         }
 
 
+        public function consultarInventario()
+        {
+            $rows = null;
+            $modelo = new Conexion();
+            $conexion = $modelo->getConexion();
+            $query = "SELECT id_pastel, codigo_barras, estado, fecha_elaboracion FROM INVENTARIO";
+            $statement = $conexion->prepare($query);
+            $statement->execute();
+
+            while($result = $statement->fetch())
+            {
+                $json[] = array(
+                    'id_pastel' => $result['id_pastel'],
+                    'codigo_barras' => $result['codigo_barras'],
+                    'estado' => $result['estado'],
+                    'fecha_elaboracion' => $result['fecha_elaboracion'],
+                );
+            }
+            echo json_encode($json);
+        }
+
+
         public function consultarSucursales()
         {
             $rows = null;
             $modelo = new Conexion();
             $conexion = $modelo->getConexion();
-            $query = "SELECT clave_suc, nombre, direccion FROM sucursal";
+            $query = "SELECT clave_suc, nombre, direccion FROM SUCURSAL";
             $statement = $conexion->prepare($query);
             $statement->execute();
 
@@ -283,7 +394,7 @@
             $rows = null;
             $modelo = new Conexion();
             $conexion = $modelo->getConexion();
-            $query = "SELECT clave_suc, nombre, direccion FROM sucursal
+            $query = "SELECT clave_suc, nombre, direccion FROM SUCURSAL
                         WHERE clave_suc LIKE '$search%'";
             $statement = $conexion->prepare($query);
             $statement->execute(array($search));
@@ -309,7 +420,7 @@
             $rows = null;
             $modelo = new Conexion();
             $conexion = $modelo->getConexion();
-            $query = "SELECT clave_pastel, descripcion, precio, unidad_medida, familia, subfamilia FROM lista_pastel
+            $query = "SELECT clave_pastel, descripcion, precio, unidad_medida, familia, subfamilia FROM LISTA_PASTEL
                         WHERE existe = :existe";
             $statement = $conexion->prepare($query);
             $statement->execute(array('existe' => $valor));
@@ -333,7 +444,7 @@
             $rows = null;
             $modelo = new Conexion();
             $conexion = $modelo->getConexion();
-            $query = "SELECT clave_pastel, descripcion, precio, unidad_medida, familia, subfamilia FROM lista_pastel
+            $query = "SELECT clave_pastel, descripcion, precio, unidad_medida, familia, subfamilia FROM LISTA_PASTEL
                         WHERE clave_pastel LIKE '$search%' AND existe = 1";
             $statement = $conexion->prepare($query);
             $statement->execute(array($search));
@@ -364,7 +475,7 @@
 
             try{
                 $valor = 0;//El valor 0 indica que el producto no existe, 1 si existe
-                $sql  = "UPDATE lista_pastel SET existe = :existe WHERE id_pastel = :id_pastel";
+                $sql  = "UPDATE LISTA_PASTEL SET existe = :existe WHERE id_pastel = :id_pastel";
                 $statement = $conexion->prepare($sql);
                 $statement->bindParam(':existe', $valor);
                 $statement->bindParam(':id_pastel', $claveProducto);

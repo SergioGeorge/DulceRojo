@@ -8,7 +8,7 @@
             //$md5pass = md5($pass);
             $modelo = new Conexion();
             $conexion = $modelo->getConexion();
-            $query = 'SELECT * FROM users WHERE user_var = :user AND user_pass = :pass';
+            $query = 'SELECT * FROM USERS WHERE user_var = :user AND user_pass = :pass';
             $statement = $conexion->prepare($query);
             $statement->execute(['user'=>$user, 'pass'=>$pass]);
 
@@ -21,7 +21,7 @@
         public function buscarRol($user){
             $modelo = new Conexion();
             $conexion = $modelo->getConexion();
-            $query = 'SELECT user_var, user_rol FROM users WHERE user_var = :user';
+            $query = 'SELECT user_var, user_rol FROM USERS WHERE user_var = :user';
             $statement = $conexion->prepare($query);
             $statement->execute(['user'=>$user]);
 
