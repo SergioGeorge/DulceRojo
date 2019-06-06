@@ -65,7 +65,15 @@
             <div class="form-group row justify-content-center" align="center">
                 <div class="col-10">
                     <button class="btn btn-outline-danger btn-lg" id="consultar" >Consultar</button>
-                  <a href="menuMaster.php" class="btn btn-outline-danger btn-lg">Regresar</a>
+                    <?php
+                        $direccionarA = 'menuMaster.php'; 
+                        $direccionarB = 'menuUser.php';
+                        if(strcmp($_SESSION['rol'], "Admin") == 0)
+                            echo "<a href='$direccionarA' class='btn btn-outline-danger btn-lg'>Regresar</a>";
+                        else
+                            echo "<a href='$direccionarB' class='btn btn-outline-danger btn-lg'>Regresar</a>";
+                    ?>
+                <!-- <a href="menuMaster.php" class="btn btn-outline-danger btn-lg">Regresar</a> -->                    
                     <!--<a href="menuMaster.html"><img src="../img/regresar.png" width="60" height="60" class="imglogo"></a>-->
                     <br><br>
                     <a href="AgregarSucursal.php"><img src="../img/agregar.png" width="100" height="100" class="imglogo"></a>
