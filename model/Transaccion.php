@@ -466,7 +466,7 @@
             echo json_encode($json);
         }
 
-        public function ocultarProducto($claveProducto){
+        public function ocultarProducto($clavePastel){
             $modelo = new Conexion();//Creamos una conexión con la BD
             $conexion = $modelo->getConexion();//Obtenemos la conexión
 
@@ -475,10 +475,10 @@
 
             try{
                 $valor = 0;//El valor 0 indica que el producto no existe, 1 si existe
-                $sql  = "UPDATE LISTA_PASTEL SET existe = :existe WHERE id_pastel = :id_pastel";
+                $sql  = "UPDATE LISTA_PASTEL SET existe = :existe WHERE clave_pastel = :clave_pastel";
                 $statement = $conexion->prepare($sql);
                 $statement->bindParam(':existe', $valor);
-                $statement->bindParam(':id_pastel', $claveProducto);
+                $statement->bindParam(':clave_pastel', $clavePastel);
 
                 $statement->execute();
                 return 1;//Regresa 1 si el registro se oculto
