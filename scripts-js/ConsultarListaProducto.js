@@ -39,6 +39,12 @@ $(document).ready(function ()
                     actualizarInfo();
                   }
               });
+
+              $('.bEditar').click(function(e)
+              {                 
+                  var registro = e.target.id.split("_")[0];
+                  reedirigirEditar(registro);
+              });
             }                
       });
     });
@@ -56,6 +62,11 @@ function eliminarRegistro(registroID){
   );
 }
 
+function reedirigirEditar(clave_pastel){
+
+  window.location = `../view/EditarProductos.php?clave_pastel=${clave_pastel}`;
+}
+
 function limpiar(){
   var template = "";
   $('#tbody-entrada').html(template);
@@ -63,26 +74,31 @@ function limpiar(){
   $('#CodigoB').removeClass('is-valid');
   $('#CodigoB').removeClass('is-invalid');
 }
-function actualizarInfo(){
+function actualizarInfo()
+{
   data = {
     transaccion:"consultar"
   }
   $.post("../controller/ControllerListaProducto.php", data, (response) => {
-    console.log("Segunda ocasion");//Debug
-
       var registros = genTemplate(response);
 
-      $('#tbody-entrada').html(registros);
-      $('.bEliminar').click(function (e) {
-        var registro = e.target.id.split("_"); 
-        var option = confirm("Estas Seguro que deseas eliminar el registro " + registro[0]);
-        if(option){
-          eliminarRegistro(e.target.id);
-          limpiar();
-          alert("Registro Eliminado");
-          actualizarInfo();
-        }
-    });
+        $('#tbody-entrada').html(registros);
+        $('.bEditar').click(function(e)
+        {                 
+            var registro = e.target.id.split("_")[0];
+            reedirigirEditar(registro);
+        });
+        $('.bEliminar').click(function (e) 
+        {
+          var registro = e.target.id.split("_"); 
+          var option = confirm("Estas Seguro que deseas eliminar el registro " + registro[0]);
+          if(option){
+            eliminarRegistro(e.target.id);
+            limpiar();
+            alert("Registro Eliminado");
+            actualizarInfo();
+          }
+        });
     });
 }
 

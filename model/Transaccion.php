@@ -4,7 +4,10 @@
 
     class Transaccion
     {
-
+        /**
+         * Función que realiza una inserción en la tabla 'LISTA_PASTEL'
+         * 
+         */
         public function insertarListaPastel($clave, $descripcion, $precio, $unidad_medida, $familia, $subfamilia)
         {
             //Hacemos un casting de String a Float del campo de 'precio del producto'
@@ -40,7 +43,9 @@
             }
 
         }
-
+        /**
+         * Función que realiza una inserción en la tabla 'SUCURSAL'
+         */
         public function insertarSucursal($clave, $nombre, $direccion)
        {
 
@@ -65,7 +70,9 @@
                 return 0;////Regresa 0 si existe algún error
             }
         }
-
+        /**
+         * Función que realiza una inserción en la tabla 'ORDEN'
+         */
         public function insertarOrden($cantidad, $no_orden, $id_pastel)
         {
  
@@ -108,7 +115,9 @@
  
 
 
-
+         /**
+          * Función que realiza una inserción en la tabla 'LISTA_PASTEL'
+          */
         public function insertarProducto($clave, $codigo, $estado,$fecha)
        {
 
@@ -413,7 +422,10 @@
             echo json_encode($json);
         }
 
-
+        /**
+         * Realiza un query/consulta de todos los registros de la tabla 'LISTA_PASTEL'         * 
+         * @return {Array} contiene todos los registros de la tabla 'LISTA_PASTEL'
+         */
         public function consultarListaPastel()
         {
             $valor = 1;//El valor 1 indica que el producto existe, 0 no existe
@@ -436,7 +448,7 @@
                     'subfamilia' => $result['subfamilia']
                 );
             }
-            echo json_encode($json);
+            return $json;
         }
 
         public function buscarProducto($search)//Busca un producto en específico
@@ -463,7 +475,26 @@
             }
 
 
-            echo json_encode($json);
+            return $json;
+        }
+        /**
+         * Función que hace una consulta de la tabla 'LISTA_PASTEL' para recuperar el último registro
+         * 
+         * @return {Array} devuelve un array asociativo con toda la información del último registro 
+         */
+        public function getLastRegister(){
+            $modelo = new Conexion();//Creamos una conexión con la BD
+            $conexion = $modelo->getConexion();//Obtenemos la conexión
+
+            if(!$conexion)//Si la conexión no se establece, se muestra mensaje de error
+                echo "Error en la conexión_";
+            
+            $sql  = "SELECT * FROM lista_pastel ORDER BY clave_pastel DESC LIMIT 1";
+            $statement = $conexion->prepare($sql);
+            $statement->execute();
+            $result = $statement->fetch();
+            
+            return $result;
         }
 
         public function ocultarProducto($clavePastel){
@@ -482,6 +513,37 @@
 
                 $statement->execute();
                 return 1;//Regresa 1 si el registro se oculto
+
+            }catch(Exception $e){
+                return 0;////Regresa 0 si existe algún error
+            }
+        }
+
+        public function actualizarProducto($descripcion,$precio,$unidad_medida,$familia,$subfamilia,$clave_pastel){
+            $modelo = new Conexion();//Creamos una conexión con la BD
+            $conexion = $modelo->getConexion();//Obtenemos la conexión
+
+            if(!$conexion)//Si la conexión no se establece, se muestra mensaje de error
+                echo "Error en la conexión_";
+
+            try{
+                $sql  = "UPDATE LISTA_PASTEL 
+                        SET descripcion = :descripcion,
+                            precio = :precio,
+                            unidad_medida = :unidad_medida,
+                            familia = :familia,
+                            subfamilia = :subfamilia
+                        WHERE clave_pastel = :clave_pastel";
+                $statement = $conexion->prepare($sql);
+                $statement->bindParam(':descripcion', $descripcion);
+                $statement->bindParam(':precio', $precio);
+                $statement->bindParam(':unidad_medida', $unidad_medida);
+                $statement->bindParam(':familia', $familia);
+                $statement->bindParam(':subfamilia', $subfamilia);
+                $statement->bindParam(':clave_pastel', $clave_pastel);
+
+                $statement->execute();
+                return 1;//Regresa 1 si el registro se actualizo
 
             }catch(Exception $e){
                 return 0;////Regresa 0 si existe algún error

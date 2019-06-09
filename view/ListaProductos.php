@@ -31,8 +31,7 @@
 
             <form action="" class="">
               <div class="col col-lg-12">
-                <div class="form-group row justify-content-center" align= "center">
-                    <label for="ClaveP" class="col-3" >Buscar por clave</label>
+                <div class="form-group row justify-content-center">
                     <div class="col-4">
                         <input type="text"  placeholder="Ingresa la clave del producto" id="CodigoB" class="form-control" required>
                     </div>

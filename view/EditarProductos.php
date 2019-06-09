@@ -27,7 +27,7 @@
         </header>
         
         <div class="presentMain">                
-            <h3 style="font-size:30px">Agregar Productos</h3>                
+            <h3 style="font-size:30px">Editar Productos</h3>                
         </div>
     
         <form class="" method="POST" style="width:90%; margin-top:40px;">
@@ -44,18 +44,18 @@
                 </div>
             </div>
 
-            <div class="form-group row">
+            <div class="form-inline row">
                 <label for="precioP" class="col-3">Precio del producto</label>
-                <div class="col-3 col-sm-3 input-group">
+                <div class="col-3 col-sm-3 input-group">                
                     <input type="number" min="0" max="999" name="precio" id="precioP_entero" class="form-control" placeholder="$000" required>
-                    <span class="input-group-addon"></span>
-                    <input type="number" min="0" max="99" name="precio" id="precioP_decimal" class="form-control" placeholder=".00" required>
+                    <span class="input-group-addon"></span>                    
+                    <input type="number" min="0" max="99" name="precio" id="precioP_decimal" class="form-control mr-3" placeholder=".00" required>                
                 </div>
             </div>
 
-            <div class="form-group row form-inline">
+            <div class="form-group row form-inline mt-3">
                 <label for="unidad_medidaP" class="col-3">Unidad de Medida</label>
-                <select id="unidad_medidaP" class="form-control custom-select ml-3" style="width:200px">
+                <select id="unidad_medidaP" class="form-control custom-select ml-3 mr-3" style="width:200px">
                     <option value="Pza">Pza</option>
                     <option value="Caja">Caja</option>
                 </select>
@@ -75,9 +75,7 @@
             <div class="form-group row">
 
                 <div class="col-10">
-                    <button  class="btn btn-outline-danger btn-lg">Guardar</button>  
-                    <button type="reset" class="btn btn-outline-danger btn-lg">Limpiar</button>
-                
+                    <input type="submit" class="btn btn-outline-danger btn-lg" value="Actualizar">                 
                     <a href="ListaProductos.php" class="btn btn-outline-danger btn-lg">Regresar</a>
                     <br><br>
                     <!-- <a href="ListaProductos.html"><img src="../img/regresar.png" width="40" height="40" class="imglogo"></a> -->
@@ -85,11 +83,12 @@
             </div>
         </form>        
     </div>
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     <link rel="stylesheet" type="text/css" href="../estilos/estilo_sucursal.css">
     <link rel="stylesheet" type="text/css" href="../estilos/menuUser.css">
     <!-- <link rel="stylesheet" type="text/css" href="../estilos/estilo_login.css"> -->
     <link rel="stylesheet" type="text/css" href="../frameworks/bootstrap.min.css">
     <script src="../frameworks/jquery-3.3.1.min.js"></script>
-    <script src="../scripts-js/AgregarProducto.js"></script>
+    <script src="../scripts-js/EditarProductos.js"></script>
 </body>
 </html>

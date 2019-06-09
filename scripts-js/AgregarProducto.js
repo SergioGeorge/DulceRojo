@@ -1,4 +1,6 @@
 $(document).ready(function () {
+
+    mostrarClavePastel();
     $('form').submit(e => {
         e.preventDefault();
         const data = {
@@ -22,5 +24,16 @@ $(document).ready(function () {
         });
       });
 });
+/**
+ * Muestra en el campo de clave pastel la (clave del último pastel + 1) para que se
+ * de la ilusión al usuario de que esta agregando un nuevo pastel
+ */
+function mostrarClavePastel(){
+    $.post("../controller/ControllerListaProducto.php", {transaccion: 'getLastRegister'}, (response) => {
+        console.log(response);
+        var fila = $.parseJSON(response);
+        $('#claveP').val(Number(fila.clave_pastel) + Number(1));
+    });
+}
 
 
